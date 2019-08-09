@@ -1,0 +1,742 @@
+/* ==========================================================================
+   HTML5 Boilerplate styles - h5bp.com (generated via initializr.com)
+   ========================================================================== */
+
+html,
+button,
+input,
+select,
+textarea {
+    color: #222;
+}
+
+body {
+    font-size: 1em;
+    line-height: 1.4;
+}
+
+::-moz-selection {
+    background: #5E8CAE;
+    text-shadow: none;
+}
+
+::selection {
+    background:#5E8CAE;
+    text-shadow: none;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+img {
+    vertical-align: middle;
+}
+
+fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.chromeframe {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+}
+
+
+/* ===== Initializr Styles ==================================================
+   Author: Jonathan Verrecchia - verekia.com/initializr/responsive-template
+   ========================================================================== */
+
+body {
+    font: 12px/16px Helvetica, Helvetica Neue, Arial;
+}
+
+.wrapper {
+    width: 97%;
+    margin: 0 2%;
+}
+
+/* ===================
+    ALL: Theme
+   =================== */
+
+.header-container {
+    border-bottom: 10px solid #888; 
+}
+
+.footer-container,
+.main aside {
+	
+    border-top: 10px solid #888;
+}
+
+.header-container,
+.footer-container,
+.main aside {
+    background:#5E8CAE ;
+}
+
+.title {
+    color: white;
+}
+
+/* ==============
+    MOBILE: Menu
+   ============== */
+
+nav ul {
+    margin: 0;
+    padding: 0;
+}
+
+nav a {
+    display: block;
+    margin-bottom: 10px;
+    padding: 15px 0;
+
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+
+    color: black;
+    background:#7FB3D5;
+}
+
+nav a:hover,
+nav a:visited {
+    color: white;
+}
+
+nav a:hover {
+    background-color: #2586d7;
+margin-top:-2px;
+padding-bottom:12px;
+}
+
+
+
+/* ==============
+    MOBILE: Main
+   ============== */
+
+.main {
+    padding: 30px 0;
+}
+
+.main article h1 {
+    font-size: 2em;
+}
+
+.main aside {
+    color: white;
+    padding: 0px 2% 10px;
+}
+
+.footer-container footer {
+    color: white;
+    padding: 20px 0;
+}
+
+/* ===============
+    ALL: IE Fixes
+   =============== */
+
+.ie7 .title {
+    padding-top: 20px;
+}
+/* ==========================================================================
+   Media Queries
+   ========================================================================== */
+
+
+
+@media only screen and (min-width: 768px) {
+
+/* ====================
+    WIDE: CSS3 Effects
+   ==================== */
+
+    .header-container,
+    .main aside {
+        -webkit-box-shadow: 0 5px 10px #aaa;
+           -moz-box-shadow: 0 5px 10px #aaa;
+                box-shadow: 0 5px 10px #aaa;
+    }
+
+/* ============
+    WIDE: Menu
+   ============ */
+
+    .title {
+        float: left;
+		padding:1% ;
+    }
+
+    nav {
+		padding:1%;
+		
+		
+    }
+	
+	
+	nav a {
+       float:right;
+        width: 10%;
+		margin: 0 2px;
+        padding: 15px 0%;
+       
+    }
+	
+	.cliente  nav {
+		padding: 0 2px 15px 0;
+		
+		
+		
+    }
+	
+	.cliente nav a {
+		list-style:none;
+		float:left;
+		margin: 0 2px;
+        padding: 8px 5%;
+		background:#B40486;
+		width: 8%;
+		
+	}
+	
+	
+	 .cliente nav li a {
+		 list-style:none;
+		color: white; 
+		font-size: 12px;
+		
+	 }
+	 
+	 nav li a {
+		color: white; 
+		font-size: 15px;
+		
+	 }
+	 
+	 nav a:hover {
+    background-color: #2586d7;
+	margin-top:-4px;
+	padding-bottom:12px;
+	}
+	 .cliente nav a:hover {
+		 list-style:none;
+    background-color: #F781D8;
+	margin-top:-4px;
+	padding-bottom:12px;
+	}
+	
+
+
+/* ============
+    WIDE: Main
+   ============ */
+
+    .main article {
+        float: left;
+        width: 87%;
+		padding:0;
+		margin:0;
+		position:relative;
+    }
+
+    .main aside {
+        float: right;
+        width: 8%;
+		margin-top:25px;
+	
+    }
+	
+
+	
+	.main nav {
+	padding-top:5%;
+    }
+	
+	
+	
+	.main nav a {
+	float:none;
+     width: 100%;
+	margin: 2px 2px;
+    padding: 15px 0%;
+       
+    }
+	
+ .main nav a:hover {
+    background-color: #2586d7;
+	margin-left:-25px;
+	padding-bottom:12px;
+	
+	
+}
+
+/* ====================
+   Vista Form General
+   ===================*/
+
+
+.vista-formGeneral section {
+	float:left;
+	border-radius: 4px;
+	border: 2px solid #084B8A  ;
+	box-shadow: 0 5px 5px #aaa ;
+	width:100%;
+	margin:0 0 10px 0;
+
+
+}
+
+
+.vista-formGeneral form {
+	float:left;
+	 width: 100%;
+	 padding: 0;
+	 margin:0;
+	overflow:scroll;
+
+}
+.vista-formGeneral ul {
+	list-style:none;
+	float:left;
+
+}
+
+.vista-formModificar ul {
+	list-style:none;
+	float:left;
+
+}
+
+.vista-formGeneral input {
+	background-color:#E5E8E8    ;
+	border: 2px solid #707B7C  ;
+    border-radius: 4px;
+
+}
+
+.vista-formModificar imput {
+	background-color:#E5E8E8    ;
+	border: 2px solid #707B7C  ;
+    border-radius: 4px;
+}
+
+
+.vista-formGeneral select{
+	background-color:#E5E8E8    ;
+	border: 2px solid #707B7C  ;
+    border-radius: 4px;
+	
+
+}
+
+.vista-formGeneral input:focus {
+    border: 2px solid #084B8A  ;
+
+}
+
+.vista-formGeneral li {
+	color: #154360  ;
+}
+
+
+
+
+.vista-formGeneral input[type=checkbox]
+{
+  /* Doble-tamaño Checkboxes */
+  -ms-transform: scale(1.5); /* IE */
+  -moz-transform: scale(1.5); /* FF */
+  -webkit-transform: scale(1.5); /* Safari y Chrome */
+  -o-transform: scale(1.5); /* Opera */
+
+}
+
+/* ====================
+   Vista Form Buscar
+   ===================*/
+   
+
+
+
+
+
+.vista-formBuscar div {
+	float:none;
+	
+}
+
+
+
+.vista-formBuscar table{ 
+ 
+ font:Arial, Helvetica, sans-serif; 
+ font-size:15px; 
+ max-width:495px; 
+ width:100%; 
+ border: 2px solid #707B7C  ; 
+ height:auto;
+ overflow-y:auto;
+ box-shadow: 0 5px 5px #aaa ;
+  margin-top:2%;
+margin-left:3%;
+margin-right: 2%;
+margin-bottom: 2%;
+ 
+
+ }
+ 
+ 
+.vista-formBuscar tr{
+	
+	border: 1px solid #707B7C  ;
+
+}
+
+ .vista-formBuscar td{
+	
+	border: 1px solid #707B7C  ;
+	padding: 5px;
+}
+.vista-formBuscar th{
+	
+	background-color:#7FB3D5  ;
+	border: 1px solid #5E8CAE   ;
+    border-radius: 4px;
+	color:white;
+	}
+ 
+ .vista-formBuscar table tr:hover {
+  background-color: #D8D8D8;
+  cursor: pointer;
+}
+
+
+.vista-formDatosCliente section {
+	
+	border-radius: 4px;
+	border: 2px solid #084B8A  ;
+	box-shadow: 0 5px 5px #aaa ;
+	
+
+
+
+}
+
+.vista-formDatosCliente table{ 
+ 
+ font:Arial, Helvetica, sans-serif; 
+ font-size:15px; 
+ width:auto; 
+height:auto;
+
+margin:20px;
+border-radius: 4px;
+
+
+ }
+ 
+ 
+.vista-formDatosCliente tr{
+	
+
+}
+
+.vista-formDatosCliente td{
+	padding-left:0;
+	padding-right:15px;
+	padding-top:5px;
+	margin:25px;
+	
+	
+}
+
+	
+.vista-formDatosCliente form {
+	
+	
+
+}
+.vista-formDatosCliente ul {
+	list-style:none;
+	
+	
+
+}
+
+.vista-formDatosCliente li {
+	
+}
+
+
+
+/* ==========================================================================
+   Helper classes
+   ========================================================================== */
+
+.ir {
+    background-color: transparent;
+    border: 0;
+    overflow: hidden;
+    *text-indent: -9999px;
+}
+
+.ir:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 150%;
+}
+
+.hidden {
+    display: none !important;
+   
+}
+
+.visibility {
+	display:block;
+}
+
+.visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+.visuallyhidden.focusable:active,
+.visuallyhidden.focusable:focus {
+    clip: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    position: static;
+    width: auto;
+}
+
+.invisible {
+    visibility: hidden;
+}
+
+.clearfix:before,
+.clearfix:after {
+    content: " ";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+
+.button {
+	margin:1%;
+	 float: right;
+	padding: 1% 1%;
+	text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+	border-radius:5px;
+	border: 2px solid #888;
+	color: white; 
+	font-size: 15px;
+	background:#5E8CAE;
+}
+.buttonRelative {
+	margin-left:3%;
+	margin-top:1%;
+	margin-bottom:1%;
+	padding: 1% 1%;
+	text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+	border-radius:5px;
+	border: 2px solid #888;
+	color: white; 
+	font-size: 15px;
+	background:#5E8CAE;
+}
+
+ .button:hover {
+    background-color: #2586d7;
+	border: 4px solid #5E8CAE;
+	
+}
+.button:focus {
+    background-color: #2586d7;
+	border: 4px solid #5E8CAE;
+	
+}
+
+ .buttonRelative:hover {
+    background-color: #2586d7;
+	border: 4px solid #5E8CAE;
+	
+}
+ .buttonRelative:focus {
+    background-color: #2586d7;
+	border: 4px solid #5E8CAE;
+	
+}
+
+
+.whiteSpace{
+ white-space: pre-line;
+}
+
+.inputform {
+	width: 40px;
+}
+/*
+.ui-dialog {
+background: #5E8CAE;
+ opacity: 0.98;
+  color: #fff;
+  top:0;
+  left: 0;
+  height: 70%;
+  width: 70%;
+  transition: all .5s;
+
+  border-radius: 4px;
+border: 5px solid #888;
+box-shadow: 5px 10px 18px  #aaa ;
+  
+}
+
+*/
+
+#modal {
+  background: #5E8CAE;
+   opacity: 0.98;
+  color: #fff;
+  top:0;
+  left: 0;
+  height: 70%;
+  width: 70%;
+  transition: all .5s;
+  margin: 10% 0 0 10%;
+  border-radius: 4px;
+border: 5px solid #888;
+box-shadow: 5px 10px 18px  #aaa ;
+  
+}
+
+#modalold {
+  background: #5E8CAE;
+   opacity: 0.98;
+  color: #fff;
+  position: fixed;
+  top:0;
+  left: 0;
+  height: 70%;
+  width: 70%;
+  transition: all .5s;
+  margin: 10% 0 0 10%;
+  border-radius: 4px;
+border: 5px solid #888;
+box-shadow: 5px 10px 18px  #aaa ;
+  
+}
+
+.buttonCerrar {
+
+	margin-left:95%;
+	transition: all .5s;
+	background:#7FB3D5;
+}
+
+/* ==========================================================================
+   Print styles
+   ========================================================================== */
+
+@media print {
+    * {
+        background: transparent !important;
+        color: #000 !important; /* Black prints faster: h5bp.com/s */
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    a,
+    a:visited {
+        text-decoration: underline;
+    }
+
+    a[href]:after {
+        content: " (" attr(href) ")";
+    }
+
+    abbr[title]:after {
+        content: " (" attr(title) ")";
+    }
+
+    /*
+     * Don't show links for images, or javascript/internal links
+     */
+
+    .ir a:after,
+    a[href^="javascript:"]:after,
+    a[href^="#"]:after {
+        content: "";
+    }
+
+    pre,
+    blockquote {
+        border: 1px solid #999;
+        page-break-inside: avoid;
+    }
+
+    thead {
+        display: table-header-group; /* h5bp.com/t */
+    }
+
+    tr,
+    img {
+        page-break-inside: avoid;
+    }
+
+    img {
+        max-width: 100% !important;
+    }
+
+    @page {
+        margin: 0.5cm;
+    }
+
+    p,
+    h2,
+    h3 {
+        orphans: 3;
+        widows: 3;
+    }
+
+    h2,
+    h3 {
+        page-break-after: avoid;
+    }
+}

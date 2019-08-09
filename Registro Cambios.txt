@@ -1,0 +1,71 @@
+----Funcionalidades Faltantes-----------------
+- pago manual ok (falta txt de gw)
+- planes de pago ok
+-automatico 
+-excepciones (vencimiento diferencial )
+-terminar saldo y resumen web
+-comparar planes Hospot con planes exel 
+
+
+cambios pendientes (que vere algun dia)
+
+-Ver que cobrodigital no baja bien los pagos por correo por falta de identificacion 
+-ver pagos difieren 
+-ver tema cambios de plan 
+
+-----------------------------------------------
+
+18/04/2019
+
+-corregir que el sal tenga tarjeta ok
+
+-corregir tema de tj corta en payu por array intersec ok
+
+-----------------------------------------------------
+
+20/04/2019
+
+-sacar una salida sola del sum mes a mes ok
+
+-Ver que cobrodigital no baja bien los pagos por correo por falta de identificacion 
+
+-comparar con salida gw 02 ok
+
+-ver tema de "paga aca" ok salen en debug
+
+----------------------------------------------------------
+
+21/04/2019
+
+cambios hechos 
+
+-sacar una salida sola del sum mes a mes ok
+
+
+-----------------------------------------------------------------
+
+22/04/2019
+
+cambios hechos
+
+-rutina de comprobacion duplicados DM
+-sal modificado desde 01-19 tomamos como cierto gw 12-18
+
+
+-------------------------------------------------------------------
+
+24/04/2019
+
+cambios hechos
+
+-busqueda en tabla clientes 
+
+cambios pendientes
+
+-terminar funcion pagoManual, tiene que ser compatible con GW
+
+---------------------------------------------------------------------
+06/05/2019
+
+-corte ok
+-reconeccion ok 
