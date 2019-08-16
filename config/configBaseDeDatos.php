@@ -1,6 +1,6 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'].'/PATH/pathSistemaCobranza.php');
-$rutaBD=$unidad."/redes.bas";
+$rutaBD=UNIDAD."/redes.bas";
 $rutaDT="/baseDatos/";
 $archClientes="entradaDatos/clientes.csv";
 $tablaClientes="tablas/tablaClientes.csv";
