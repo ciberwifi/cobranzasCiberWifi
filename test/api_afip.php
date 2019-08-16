@@ -8,9 +8,12 @@ Ultimo numero de comprobante Suc 6: 208
 */
 include_once($_SERVER['DOCUMENT_ROOT'].'/PATH/pathSistemaCobranza.php');
 require_once(API_PATH.'AfipWsass/src/Afip.php'); 
+require_once(API_PATH.'AfipWsass/nusoap/lib/nusoap.php');
 include_once (CONFIG_PATH.'configBaseDeDatos.php');
 
-$afip_res=$rutaBD.$rutaDT."Afip/Laura";
+$afip_res=$rutaBD.$rutaDT."Afip/Laura/Afip_res/";
+
+
 
 $afip = new Afip(array(
 				'CUIT' => 27350882273,
@@ -18,15 +21,16 @@ $afip = new Afip(array(
 				'cert'=>'cert.pem',
 				));
 
-//echo $afip->CERT;
+
 //Obtener número del último comprobante creado
-$last_voucher = $afip->ElectronicBilling->GetLastVoucher(6,011); //Devuelve el número del último comprobante creado para el punto de venta 1 y el tipo de comprobante 6 (Factura B)
+$last_voucher = $afip->ElectronicBilling->GetLastVoucher(7,011); //Devuelve el número del último comprobante creado para el punto de venta 1 y el tipo de comprobante 6 (Factura B)
 
-//echo $last_voucher;
+echo $last_voucher;
 
-/*
+
 //Crear y asignar CAE a un comprobante
 //testeo con sucursal 7 
+/*
 $data = array(
 	'CantReg' 	=> 1,  // Cantidad de comprobantes a registrar
 	'PtoVta' 	=> 7,  // Punto de venta
@@ -56,13 +60,13 @@ $data = array(
 
 $result = $afip->ElectronicBilling->CreateVoucher($data);
 
-$result['CAE']; //CAE asignado el comprobante
-$result['CAEFchVto']; //Fecha de vencimiento del CAE (yyyy-mm-dd)
-$result['voucher_number']; // numero de comprobante
+echo $result['CAE']; //CAE asignado el comprobante
+echo $result['CAEFchVto']; //Fecha de vencimiento del CAE (yyyy-mm-dd)
+echo $result['voucher_number']; // numero de comprobante
 
 //Crear y asignar CAE a un comprobante
-$result = $afip->ElectronicBilling->CreateNextVoucher($data);
+//$result = $afip->ElectronicBilling->CreateNextVoucher($data);
+
 
 */
-
 ?>
