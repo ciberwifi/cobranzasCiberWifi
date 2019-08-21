@@ -1,6 +1,6 @@
 <?php
 
-error_reporting(E_ERROR | E_WARNING | E_PARSE);
+//error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
 
  
@@ -44,6 +44,7 @@ foreach ($envios as $envio) {
 		    )
 		);
 		$url.='?'.$postdata;
+		//var_dump ($postdata);
 		$context = stream_context_create($opts);
 		$result = file_get_contents($url, false, $context);
 	}
@@ -54,7 +55,9 @@ foreach ($envios as $envio) {
 		error_log(json_encode($result));
 		exit();
 	}
+	
 	$datos=json_decode($result);
+	var_dump($datos);
 	if(isset($envio['metodo_webservice'])){
 		$tr->appendChild($view->createElement('td',$envio['metodo_webservice']));
 	}
@@ -65,7 +68,7 @@ foreach ($envios as $envio) {
 		if(!is_string($value)){
 			foreach ($value as $a => $b) {
 				
-				$tr->appendChild($view->createElement('td',$a.'=>'.$b));
+			$tr->appendChild($view->createElement('td',$a.'=>'.$b));
 			}
 		}
 		else{

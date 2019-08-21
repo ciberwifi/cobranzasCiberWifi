@@ -24,11 +24,11 @@ function descargarPagos ($fecha, $socio1, $socio2, $auto) {
 		echo "\n"."Pagos RA"."\n" ;
 	require(CONFIG_PATH.'configuracionDM-'.$socio2.'.php');
 	$configDM= NEW ConfiguracionDM ($socio2, $archivoPagosTxt, $archivoPagosCvs, $email, $cuenta, $pin, $rutaGW, $comercio, $sid);
-	ingresarPagosDM($mes, $anio,$configDM, $auto,0 );
+	//ingresarPagosDM($mes, $anio,$configDM, $auto,0 );
 	ingresarPagosCD($mes, $anio,$configDM, $auto,0 );
 	
 		}
-	
+	/*
 	require(CONFIG_PATH.'configuracionDM-'.$socio1.'.php');
 	$configDM= NEW ConfiguracionDM ($socio1, $archivoPagosTxt, $archivoPagosCvs, $email, $cuenta, $pin, $ruta, "" , "");
 	ingresarPagosDM($mes, $anio,$configDM, $auto,1 );
@@ -40,9 +40,9 @@ function descargarPagos ($fecha, $socio1, $socio2, $auto) {
   echo "Pagos descargados a BASE de DATOS"."\r\n"; 
 }
 
+*/
 
 
-
-
+}
 
 ?>

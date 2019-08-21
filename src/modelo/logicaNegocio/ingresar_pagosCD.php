@@ -18,6 +18,7 @@ function ingresarPagosCD($mes, $anio, $configDM, $auto, $flagSum) {
 
 global $diaActual,$diaHasta,$primerDia, $mesActual;
 
+
 if($auto==1 && $diaActual==$primerDia){
 	$diaHasta = date('d',mktime(0, 0, 0, $mes, 0, $anio));
 		if($mesActual==01)obtenerPagosCD(12 ,31, $anio-1, $configDM);
@@ -33,6 +34,7 @@ if ($mes !== $mesActual && $anio !== $anioActual ) {
 }
 
 function obtenerPagosCD($mes, $diaHasta, $anio, $configDM, $flagSum) {
+	global $primerDia;
 	
 	$envios=array();
 		
@@ -62,12 +64,14 @@ $vec2=array();
 		
 		if(is_string($tag->nodeValue)){
 			
-		$vec = explode("},", $tag->nodeValue);
+		 $vec = explode("},", $tag->nodeValue);
 			
 		}
+		
 	}	
-	
+	/*
 			foreach ($vec as $element){
+				echo $element;
 			$vec2 = explode(",", $element);	
 			
 				
@@ -107,13 +111,13 @@ $vec2=array();
 					$comprobarMes=explode("-",$fecha);
 					
 					if($comprobarMes[1]===$mes){
-					$linea=$fecha.",".$importe.",".$entidad.",".$tarjetaTab;
+					echo $linea=$fecha.",".$importe.",".$entidad.",".$tarjetaTab;
 					grabarEnArchivo($archivoPagosCvs, $linea);
 					}
 					
 					}
 			}
-			
+		*/	
 
 }
 
