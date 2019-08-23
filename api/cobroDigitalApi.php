@@ -23,15 +23,11 @@ function obtenerPagos ($envios){
 	
 $url='https://www.cobrodigital.com:14365/ws3/';
 $conexion='get'; # Opciones: 'post','get','nusoap'
-$view=new DOMDocument('1.0','UTF-8');
-$table=$view->createElement('table');
-$view->appendChild($table);
+
 
 
 foreach ($envios as $envio) {
-	$tr=$view->createElement('tr');
-	$tr->appendChild($view->createElement('td',$envio['resultado_buscado']));
-	unset($envio['resultado_buscado']);
+	
 
 	$postdata = http_build_query($envio);
 	
@@ -57,35 +53,26 @@ foreach ($envios as $envio) {
 	}
 	
 	$datos=json_decode($result);
-	var_dump($datos);
-	if(isset($envio['metodo_webservice'])){
-		$tr->appendChild($view->createElement('td',$envio['metodo_webservice']));
-	}
-	else{
-		$tr->appendChild($view->createElement('td','No hay método.'));
-	}
-	foreach ($datos as $key => $value) {
-		if(!is_string($value)){
-			foreach ($value as $a => $b) {
-				
-			$tr->appendChild($view->createElement('td',$a.'=>'.$b));
-			}
+	//var_dump($datos);
+	$transaccion=array();
+	
+		foreach ($datos as $dato){
+			echo "DATO";
+			//var_dump ($dato);
+				if(is_array($dato)){
+					echo "is array";
+					var_dump ($dato);	
+					}
+				if(is_string($dato)){
+					echo "is string";
+					var_dump ($dato);
+					}
+			 echo "FIN";
+			//}
 		}
-		else{
-			
-			$tr->appendChild($view->createElement('td',$key.'=>'.$value));
-		}
-	}
-	$table->appendChild($tr);
-}
- $view->saveHTML();
-
-
- return $view;
- 
 }
 
-
+}
 
 
 
