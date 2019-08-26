@@ -31,7 +31,7 @@
                 <nav>
                     <ul >
 					 <li><a href="#" id=""></a></li>  
-                       <li><a href="#" id=""></a></li>  
+                       <li><a href="#AFIP" id="btnAfip">Facturacion</a></li>  
                      <li><a href="#planPagos" id="btnPlanPagos">Plan Pagos </a></li>
 					<li><a href="#pagoManual" id="btnPagoManual">Pago Manual  </a></li>
 					<li><a href="#descargarPagos" id="btnDescargarPagos"> Bajar Pagos</a></li>
@@ -93,6 +93,11 @@
 			});	
 			$("#btnPlanPagos").click(function(){
 					var loadUrl = "src/vista/vistaPlanPagos.php"; // paso parametro accion e id
+					$("#ajaxMainContenedor").load(loadUrl); // ejecuto
+					
+			});	
+				$("#btnAfip").click(function(){
+					var loadUrl = "src/vista/vistaFacturacionElectronica.php"; // paso parametro accion e id
 					$("#ajaxMainContenedor").load(loadUrl); // ejecuto
 					
 			});	

@@ -14,9 +14,9 @@ include_once (CONFIG_PATH.'configBaseDeDatos.php');
 require_once(MODEL_PATH.'clases/FacturaElectronica.php');
 
 
-$afip_res=$rutaBD.$rutaDT."Afip/Laura/Afip_res/";
-$CUIT="27350882273";
-$sucursal=7;
+$afip_res=$rutaBD.$rutaDT."Afip/Raul/Afip_res/";
+$CUIT=23125491979;
+$sucursal=6;
 $codigoFactura=011; //tipo C = 011
 $montoTotal=30000;
 $importes=array(390,490,590,440,540,640,700,750);
@@ -26,10 +26,10 @@ $importes=array(390,490,590,440,540,640,700,750);
 
 $facturaElectronica= New FacturaElectronica($CUIT, $sucursal, $codigoFactura, $afip_res,$montoTotal, $importes);
 
- //echo $var=$facturaElectronica->serverStatus();
+$var=$facturaElectronica->serverStatus();
 
-$facturaElectronica->facturarMes($montoTotal);
-$numFac=$facturaElectronica->ultimoNumeroFactura();
+//$facturaElectronica->facturar(1000);
+echo $numFac=$facturaElectronica->ultimoNumeroFactura();
 $facturaElectronica->verDatosFactura($numFac);
 
 ?>

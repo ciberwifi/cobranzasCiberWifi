@@ -67,10 +67,10 @@ public function facturar($importe){
 	
 if($importe==0){
 	$claveRand=array_rand($this->importes,1);
-	echo $importe=$this->importes[$claveRand];
+	 $importe=$this->importes[$claveRand];
 	}
-	echo $importeNeto=round($importe/1.21,2);
-	echo $iva=round($importeNeto*0.21,2);
+	 $importeNeto=round($importe/1.21,2);
+	 $iva=round($importeNeto*0.21,2);
 	
 $data = array(
 	'CantReg' 	=> 1,  // Cantidad de comprobantes a registrar
@@ -114,7 +114,7 @@ return $importe;
 
 public function ultimoNumeroFactura(){
 
-$last_voucher = $this->Afip->ElectronicBilling->GetLastVoucher(7,011); //Devuelve el número del último comprobante creado para el punto de venta 1 y el tipo de comprobante 6 (Factura B)
+$last_voucher = $this->Afip->ElectronicBilling->GetLastVoucher($this->sucursal,$this->codigoFactura); //Devuelve el número del último comprobante creado para el punto de venta 1 y el tipo de comprobante 6 (Factura B)
 
 return $last_voucher;
 
