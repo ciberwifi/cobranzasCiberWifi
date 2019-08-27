@@ -1,7 +1,8 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'].'/PATH/pathSistemaCobranza.php');
 require_once(API_PATH.'AfipWsass/src/Afip.php'); 
-
+include_once (CONFIG_PATH.'configBaseDeDatos.php');
+require_once(MODEL_PATH.'logicaNegocio/auxiliares/gestionarArchivos.php');
 
 Class FacturaElectronica {
     // Declaración de una propiedad
@@ -61,9 +62,14 @@ public function facturarMes($montoTotal){
 
 //ingresar 0 para importe aleatorio, factura con la fecha de hoy , tipo servicios	
 public function facturar($importe){
+	global $rutaBD, $rutaDT;
+	
+	$fecha=date('Y-m-d');
 	$hoy=date('Ymd');
 	$mes=date('m');
 	$anio=date('Y');
+	
+	$archFacturacion=$rutaBD.$rutaDT."pagos/".$anio."/".$mes."/"."Facturacion".$this->CUIT.".csv";
 	
 if($importe==0){
 	$claveRand=array_rand($this->importes,1);
@@ -104,9 +110,13 @@ $data = array(
 
 $result = $this->Afip->ElectronicBilling->CreateNextVoucher($data);
 
-//echo $result['CAE']; //CAE asignado el comprobante
-//echo $result['CAEFchVto']; //Fecha de vencimiento del CAE (yyyy-mm-dd)
-//echo $result['voucher_number']; // numero de comprobante
+if(file_exists($archFacturacion)==FALSE){
+	$linea="Fecha Factura , Numero Factura, Importe , N° CAE, Vencimiento CAE";
+	grabarEnArchivo($archFacturacion, $linea);
+	}
+	
+$linea=$fecha.",".$result['voucher_number'].",".$importe.",".$result['CAE'].",".$result['CAEFchVto'];
+		grabarEnArchivo($archFacturacion, $linea);	
 
 return $importe;
 
