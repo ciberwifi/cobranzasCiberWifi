@@ -124,6 +124,8 @@
     <input type="checkbox" name="checkbox-1" id="checkbox-1" value="la" >
     <label for="checkbox-2">RA</label>
     <input type="checkbox" name="checkbox-2" id="checkbox-2" value="ra">
+	<label for="checkbox-3">IS</label>
+    <input type="checkbox" name="checkbox-3" id="checkbox-3" value="is">
    </fieldset>
    </br>
 <button id="btnBuscar" onclick="stopDefAction(event)"; >Aceptar!</button>

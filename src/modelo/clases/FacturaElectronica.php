@@ -7,7 +7,7 @@ require_once(MODEL_PATH.'logicaNegocio/auxiliares/gestionarArchivos.php');
 Class FacturaElectronica {
     // Declaración de una propiedad
     private $CUIT;
-	private $Afip;
+	public $Afip;
 	private $sucursal;
 	private $codigoFactura; //tipo C = 011
 	private $montoTotal;
@@ -26,8 +26,10 @@ Class FacturaElectronica {
 	$this->Afip=new Afip(array(
 				'CUIT' => $CUIT,
 				'res_folder' =>$afip_res,
-				'cert'=>'cert.pem',
+				'cert'=>'cert.crt',
 			    'key'=>'key',
+				'production'=>TRUE,
+				
 				));
 
 	}
@@ -90,32 +92,27 @@ $data = array(
 	'CbteFch' 	=> intval(date('Ymd')), // (Opcional) Fecha del comprobante (yyyymmdd) o fecha actual si es nulo
 	'ImpTotal' 	=> $importe, // Importe total del comprobante
 	'ImpTotConc' 	=> 0,   // Importe neto no gravado
-	'ImpNeto' 	=> $importeNeto, // Importe neto gravado
+	'ImpNeto' 	=> $importe, // Importe neto gravado
 	'ImpOpEx' 	=> 0,   // Importe exento de IVA
-	'ImpIVA' 	=> $iva,  //Importe total de IVA
+	'ImpIVA' 	=> 0,  //Importe total de IVA
 	'ImpTrib' 	=> 0,   //Importe total de tributos
 	'MonId' 	=> 'PES', //Tipo de moneda usada en el comprobante (ver tipos disponibles)('PES' para pesos argentinos) 
 	'MonCotiz' 	=> 1,     // Cotización de la moneda usada (1 para pesos argentinos)  
 	'FchServDesde'=> date('Ymd',mktime(0, 0, 0, $mes-1, 10, $anio)), 
 	'FchServHasta'=> date('Ymd',mktime(0, 0, 0, $mes, 10, $anio)),
 	'FchVtoPago'=> $hoy,
-		'Iva' 		=> array( // (Opcional) Alícuotas asociadas al comprobante
-		array(
-			'Id' 		=> 5, // Id del tipo de IVA (5 para 21%)(ver tipos disponibles) 
-			'BaseImp' 	=> $importeNeto, // Base imponible
-			'Importe' 	=> $iva // Importe 
-		)
-	), 
+	
+		
 );
 
 $result = $this->Afip->ElectronicBilling->CreateNextVoucher($data);
 
 if(file_exists($archFacturacion)==FALSE){
-	$linea="Fecha Factura , Numero Factura, Importe , N° CAE, Vencimiento CAE";
+	$linea="Fecha Factura , Numero Factura, Importe , N° CAE, Vencimiento CAE, Direccion, Nombre y Apelido" ;
 	grabarEnArchivo($archFacturacion, $linea);
 	}
 	
-$linea=$fecha.",".$result['voucher_number'].",".$importe.",".$result['CAE'].",".$result['CAEFchVto'];
+$linea=$fecha.",".$result['voucher_number'].",".$importe.",".$result['CAE'].",".$result['CAEFchVto'].",".",";
 		grabarEnArchivo($archFacturacion, $linea);	
 
 return $importe;

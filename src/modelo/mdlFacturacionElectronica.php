@@ -17,8 +17,12 @@ function nuevaFactura($socio, $cantFacturas, $montoTotal) {
 	echo "\n"."Facturacion RA"."\n" ;
 	require(CONFIG_PATH.'configuracionAfip-'.$socio.'.php');
 	}
+	if(strcmp($socio, "is")==0){
+	echo "\n"."Facturacion RA"."\n" ;
+	require(CONFIG_PATH.'configuracionAfip-ra.php');
+	}
 
-echo $CUIT;
+echo $CUIT." ".$sucursal;
 $facturaElectronica= New FacturaElectronica($CUIT, $sucursal, $codigoFactura, $afip_res,$montoTotal, $importes);
 
 if ($cantFacturas==0)$facturaElectronica->facturarMes($montoTotal);

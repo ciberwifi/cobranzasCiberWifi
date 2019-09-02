@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<loginTicketResponse version="1">
+    <header>
+        <source>CN=wsaa, O=AFIP, C=AR, SERIALNUMBER=CUIT 33693450239</source>
+        <destination>SERIALNUMBER=CUIT 23125491979, CN=fac239</destination>
+        <uniqueId>3829608593</uniqueId>
+        <generationTime>2019-09-02T16:07:27.553-03:00</generationTime>
+        <expirationTime>2019-09-03T04:07:27.553-03:00</expirationTime>
+    </header>
+    <credentials>
+        <token>PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/Pgo8c3NvIHZlcnNpb249IjIuMCI+CiAgICA8aWQgc3JjPSJDTj13c2FhLCBPPUFGSVAsIEM9QVIsIFNFUklBTE5VTUJFUj1DVUlUIDMzNjkzNDUwMjM5IiBkc3Q9IkNOPXdzZmUsIE89QUZJUCwgQz1BUiIgdW5pcXVlX2lkPSI0MjA3NTM0NyIgZ2VuX3RpbWU9IjE1Njc0NTExODciIGV4cF90aW1lPSIxNTY3NDk0NDQ3Ii8+CiAgICA8b3BlcmF0aW9uIHR5cGU9ImxvZ2luIiB2YWx1ZT0iZ3JhbnRlZCI+CiAgICAgICAgPGxvZ2luIGVudGl0eT0iMzM2OTM0NTAyMzkiIHNlcnZpY2U9IndzZmUiIHVpZD0iU0VSSUFMTlVNQkVSPUNVSVQgMjMxMjU0OTE5NzksIENOPWZhYzIzOSIgYXV0aG1ldGhvZD0iY21zIiByZWdtZXRob2Q9IjIyIj4KICAgICAgICAgICAgPHJlbGF0aW9ucz4KICAgICAgICAgICAgICAgIDxyZWxhdGlvbiBrZXk9IjIzMTI1NDkxOTc5IiByZWx0eXBlPSI0Ii8+CiAgICAgICAgICAgIDwvcmVsYXRpb25zPgogICAgICAgIDwvbG9naW4+CiAgICA8L29wZXJhdGlvbj4KPC9zc28+Cg==</token>
+        <sign>NlQOCCZ09ZiWApDWu68FBr3iMETGk3q7ya5gOluRS/DuljEMl8HphsA9c9siIvja3vgvW93EtLr/0eKhZhOzS2R7maUXJ6UfTAAFdhWduf31SXWAxeWIinRuKarY9VoiNUxASqI5xJzaNFPCcPuUQhibieSXunuQ3msEyLHCjlA=</sign>
+    </credentials>
+</loginTicketResponse>
