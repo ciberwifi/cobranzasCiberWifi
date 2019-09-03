@@ -55,23 +55,32 @@ foreach ($envios as $envio) {
 	$datos=json_decode($result);
 	//var_dump($datos);
 	$transaccion=array();
-	
+	$vec=array();
 		foreach ($datos as $dato){
-			echo "DATO";
+		//	echo "DATO", "\n";
 			//var_dump ($dato);
 				if(is_array($dato)){
-					echo "is array";
-					var_dump ($dato);	
+					//echo "is array", "\n";
+					
+						if(is_string($dato[0])){
+						//echo $dato[0];
+						//var_dump ($dato);
+						}else{
+						
+						$vec=$dato[0];	
+						
 					}
+					}
+					
 				if(is_string($dato)){
-					echo "is string";
-					var_dump ($dato);
+					//echo "is string", "\n";
+					//var_dump ($dato);
 					}
-			 echo "FIN";
-			//}
+			
 		}
 }
 
+return $vec;
 }
 
 

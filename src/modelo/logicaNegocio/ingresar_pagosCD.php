@@ -2,7 +2,7 @@
 require_once('auxiliares/gestionarArchivos.php');
 include_once ($_SERVER['DOCUMENT_ROOT'].'/PATH/pathSistemaCobranza.php');
 require (API_PATH."cobroDigitalApi.php");
-
+require_once(CONFIG_PATH."configBaseDeDatos.php");
 // set de variables
 
 
@@ -16,7 +16,7 @@ $diaHasta=$diaActual;
 
 function ingresarPagosCD($mes, $anio, $configDM, $auto, $flagSum) {
 
-global $diaActual,$diaHasta,$primerDia, $mesActual;
+global $diaActual,$diaHasta,$primerDia, $mesActual, $anioActual;
 
 
 if($auto==1 && $diaActual==$primerDia){
@@ -42,84 +42,58 @@ function obtenerPagosCD($mes, $diaHasta, $anio, $configDM, $flagSum) {
 	 $fechaHasta=obtenerFecha($mes, $diaHasta, $anio);
 
 	$envios = envios($configDM->comercio, $configDM->sidd, $fechaDesde, $fechaHasta);
-	$pagosHtml = obtenerPagos ($envios);
+	$vecTransacciones = obtenerPagos ($envios);
 	
 	//caso gw 
 	if($flagSum===0)$archivoPagosCvs=obtenerRutaCarpetaCsv($configDM->ruta, $mes, $anio ,$configDM->archivoPagosCvs);
 	if($flagSum!==0)$archivoPagosCvs=obtenerRutaCarpetaBaseDatosCsv($configDM->ruta, $mes, $anio ,$configDM->archivoPagosCvs);
 	
 	
-	procesarPagos($pagosHtml,$archivoPagosCvs, $mes);
+	procesarPagos($vecTransacciones,$archivoPagosCvs, $mes);
 
 }
 
 
-function procesarPagos($pagosHtml,$archivoPagosCvs, $mes){
-$tags = $pagosHtml->getElementsByTagName('td');
-$vec=array();
-$vec2=array();
-
-
-	foreach ($tags as $tag) {
+function procesarPagos($vecTransacciones,$archivoPagosCvs, $mes){
+	global $rutaBD, $rutaDT;
+	$archPagosEmail=$rutaBD.$rutaDT.'pagos/PagosCorreo.csv';
+	$vec=array();
+	
+	foreach ($vecTransacciones as $dat){
+	
+		$vec = json_decode(json_encode($dat), True);
+							
+		//echo $vec["Fecha"].",".$vec["Bruto"].",".$vec["Código de barras"].",".$vec["Info"].",".$vec["Nombre"]."\n";
+					
+		 $fecha= $vec["Fecha"] ;
+		 $tarjeta=$vec["Código de barras"];
+		 $nombre=$vec["Nombre"];
+		 $info=$vec["Info"];
+		 $importe=$vec["Bruto"];
+					
+		$tarjetaTab=substr($tarjeta,0,15); 
+		$fecha2=str_replace('/','-',$fecha);
+					
+		$comprobarMes=explode("-",$fecha2);
 		
-		if(is_string($tag->nodeValue)){
-			
-		 $vec = explode("},", $tag->nodeValue);
-			
-		}
-		
-	}	
-	/*
-			foreach ($vec as $element){
-				echo $element;
-			$vec2 = explode(",", $element);	
-			
-				
-					 $fecha= explode(":",$vec2[1]) ;
-					 $tarjeta=explode(":", $vec2[2]);
-					 $email=explode('":"', $vec2[4]);
-					 $entidad=explode(":", $vec2[6]);
-					 $importe=explode(":", $vec2[8]);
-					 $importe= str_replace(".","",$importe);
-					 
-					
-					if(is_string($fecha[1])&& $tarjeta[1] !='null'){
-						
-						$email2=substr($email[1],5,30);
-						
-						if(strlen($email2)>3){
-							$tarjeta2=substr($email[1],5,30);
-							$tarjeta=str_replace('"','',$tarjeta2);
-							$tarjetaTab3=substr($tarjeta,0,25); 
-							$email55=explode("@", $tarjetaTab3);
-							$tarjetaTab=$email55[0]."@";
-					
-							}else{
-							$tarjeta2=$tarjeta[1];
-							$tarjeta=str_replace('"','',$tarjeta2);
-							$tarjetaTab2=substr($tarjeta,0,15); 
-							$tarjetaTab=$tarjetaTab2;
-							}
-					
-					$fecha2=str_replace('"','',$fecha[1]);
-					
-					$fecha=str_replace('\/','-',$fecha2);
-					
-					$importe=str_replace('"','',$importe[1]);
-					$entidad=str_replace('"','',$entidad[1]);
-				
-					$comprobarMes=explode("-",$fecha);
-					
-					if($comprobarMes[1]===$mes){
-					echo $linea=$fecha.",".$importe.",".$entidad.",".$tarjetaTab;
-					grabarEnArchivo($archivoPagosCvs, $linea);
-					}
-					
-					}
+			if(strlen($nombre)>3){
+			$vecPagosEmail=file($archPagosEmail);
+			foreach ($vecPagosEmail as $linea){
+				$dato = explode(",", $linea);
+				$datoSearch=trim($dato[1]);
+				if(strcmp(trim($nombre),$datoSearch)===0)$tarjetaTab=$dato[0];
+				}
+			}				
+		if($comprobarMes[1]===$mes && $tarjeta!==null){
+		 $linea=$fecha2.",".$importe.",".$info.",".$tarjetaTab.",".$nombre;
+		grabarEnArchivo($archivoPagosCvs, $linea);
 			}
-		*/	
-
+					
+	}
 }
+		
+
+
 
 
 

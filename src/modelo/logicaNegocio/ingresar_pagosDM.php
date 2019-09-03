@@ -17,7 +17,7 @@ $arrayTransacciones=array();
 
 function ingresarPagosDM($mes, $anio, $configDM, $auto, $flagSum){
 	
-	global $diaActual,$diaHasta,$primerDia, $mesActual, $arrayTransacciones;
+	global $diaActual,$diaHasta,$primerDia, $mesActual,$anioActual, $arrayTransacciones;
 	
 	
 if($auto==1 && $diaActual==$primerDia){
@@ -89,7 +89,7 @@ endforeach;
 }
 
 function obtenerPagosDM($mes, $diaActual, $anio, $configDM, $flagSum){
-			
+			global $primerDia;
 	//gw comun	
 	if($flagSum===0){
 		$archivoProcesable=obtenerRutaCarpetaCsv($configDM->ruta, $mes, $anio, $configDM->archivoPagosCvs);
