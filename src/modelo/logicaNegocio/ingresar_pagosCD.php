@@ -18,13 +18,13 @@ function ingresarPagosCD($mes, $anio, $configDM, $auto, $flagSum) {
 
 global $diaActual,$diaHasta,$primerDia, $mesActual, $anioActual;
 
-
+/*
 if($auto==1 && $diaActual==$primerDia){
 	$diaHasta = date('d',mktime(0, 0, 0, $mes, 0, $anio));
 		if($mesActual==01)obtenerPagosCD(12 ,31, $anio-1, $configDM);
 		else obtenerPagosCD($mes-1 ,$diaHasta, $anio, $configDM,$flagSum);
   }
-
+*/
 if ($mes !== $mesActual  ) {
 	 $diaHasta=date('d',mktime(0, 0, 0, $mes+1, 0, $anio));
 }		
