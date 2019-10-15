@@ -2,7 +2,7 @@
 
 
 require_once('../modelo/mdlPagoManual.php');
- 
+ $fecha= htmlspecialchars($_POST['impFecha']);
  $dni= htmlspecialchars($_POST['impDni']);
  $importe= htmlspecialchars($_POST['impImporte']);
  $detalle= htmlspecialchars($_POST['impDetalle']);
@@ -23,7 +23,7 @@ require_once('../modelo/mdlPagoManual.php');
 	if(strcmp($socio2, "ra")==0)$socio=$socio2;
 	
 	
-	ingresarPagoManual($dni,$importe,$socio,$detalle);
+	ingresarPagoManual($fecha, $dni,$importe,$socio,$detalle);
 
 
  

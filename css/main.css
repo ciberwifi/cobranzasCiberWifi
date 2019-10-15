@@ -35,7 +35,10 @@ hr {
 }
 
 img {
+	 float: left;
+		padding:1% ;
     vertical-align: middle;
+
 }
 
 fieldset {
@@ -91,6 +94,7 @@ body {
 
 .title {
     color: white;
+	 font: oblique bold 280% cursive;
 }
 
 /* ==============
@@ -142,7 +146,8 @@ padding-bottom:12px;
 
 .main aside {
     color: white;
-    padding: 0px 2% 10px;
+    padding:0px 2% 10px;
+	
 }
 
 .footer-container footer {
@@ -186,7 +191,7 @@ padding-bottom:12px;
     }
 
     nav {
-		padding:1%;
+		padding:3%;
 		
 		
     }
@@ -275,8 +280,8 @@ padding-bottom:12px;
 	.main nav a {
 	float:none;
      width: 100%;
-	margin: 2px 2px;
-    padding: 15px 0%;
+	margin: 3%;
+    padding: 12%;
        
     }
 	

@@ -25,8 +25,8 @@ if($auto==1 && $diaActual==$primerDia){
 		else obtenerPagosCD($mes-1 ,$diaHasta, $anio, $configDM,$flagSum);
   }
 
-if ($mes !== $mesActual && $anio !== $anioActual ) {
-	$diaHasta=date('d',mktime(0, 0, 0, $mes+1, 0, $anio));
+if ($mes !== $mesActual  ) {
+	 $diaHasta=date('d',mktime(0, 0, 0, $mes+1, 0, $anio));
 }		
 		
 		obtenerPagosCD($mes,$diaHasta, $anio, $configDM, $flagSum);
@@ -70,7 +70,9 @@ function procesarPagos($vecTransacciones,$archivoPagosCvs, $mes){
 		 $nombre=$vec["Nombre"];
 		 $info=$vec["Info"];
 		 $importe=$vec["Bruto"];
-					
+		 $importe2=explode(",",$importe);	
+		 $importe3 = str_replace(".", "", $importe2[0]);	
+		
 		$tarjetaTab=substr($tarjeta,0,15); 
 		$fecha2=str_replace('/','-',$fecha);
 					
@@ -81,11 +83,13 @@ function procesarPagos($vecTransacciones,$archivoPagosCvs, $mes){
 			foreach ($vecPagosEmail as $linea){
 				$dato = explode(",", $linea);
 				$datoSearch=trim($dato[1]);
-				if(strcmp(trim($nombre),$datoSearch)===0)$tarjetaTab=$dato[0];
+				if(strcmp(trim($nombre),$datoSearch)===0)$tarjetaTab2=$dato[0];
+				$tarjetaTab3=explode("@",$tarjetaTab2);
+				$tarjetaTab=$tarjetaTab3[0]."@";
 				}
 			}				
 		if($comprobarMes[1]===$mes && $tarjeta!==null){
-		 $linea=$fecha2.",".$importe.",".$info.",".$tarjetaTab.",".$nombre;
+		 $linea=$fecha2.",".$importe3.",".$info.",".$tarjetaTab.",".$nombre;
 		grabarEnArchivo($archivoPagosCvs, $linea);
 			}
 					

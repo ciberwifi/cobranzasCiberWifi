@@ -9,7 +9,7 @@
   
   <style>
     .ui-controlgroup-vertical {
-      width: 300px;
+      width: 400 px;
 	  border: 1px solid #5E8CAE   ;
 	  border-radius: 4px;
 	  box-shadow: 0 5px 5px #aaa ;
@@ -110,30 +110,16 @@
 
 	
  
-      <h2>Ingrese DNI o Tarjeta para identificar Cliente:</h2>
-      <input id="impDni" name="impDni" placeholder="39228775" type="text-align:center">
-	  <h4>Ingrese importe:</h2>
+      <h2>Estimado Usuario:</h2>
+	  <h3>El Sistema interrumpira el servicio y enviara un SMS a cada cliente informando saldo deudor</h3>
+	  <h3>Recuerde Descargar Pagos y procesar mes previamente</h3>
       
-	  <input id="impImporte" name="impImporte" placeholder="400" type="text-align:center">
-	  <h4>Ingrese Detalle:</h2>
-      
-	  <input id="impDetalle" name="impDetalle" placeholder="bonificacion" type="text-align:center">
 	  
-	   <h4>Ingrese Fecha:</h2>
-      
-	  <input id="impFecha" name="impFecha" placeholder="10-05-2019" type="text-align:center">
 	  </br>
 	  </br>
 	 
-  <fieldset>
-    
-    <label for="checkbox-1">LA</label>
-    <input type="checkbox" name="checkbox-1" id="checkbox-1" value="la" >
-    <label for="checkbox-2">RA</label>
-    <input type="checkbox" name="checkbox-2" id="checkbox-2" value="ra">
-   </fieldset>
-   </br>   
-<button id="btnBuscar" onclick="stopDefAction(event)"; >Aceptar!</button>
+  
+<button id="btnConsultar" onclick="stopDefAction(event)"; >Confirmar</button>
 </div>
 	
 	  </form> 
@@ -159,11 +145,11 @@
 	
 		
 	
-		$("button[id=btnBuscar]").click(function(){
+		$("button[id=btnConsultar]").click(function(){
 	    document.querySelector("#" + "RsltContenedor").className = "visibility";
 		
 			var data = $("#formConsultaSaldo").serialize();
-			$.post("src/controlador/ctrlPagoManual.php", data ,function(result) {	
+			$.post("src/controlador/ctrlCorteServicio.php", data ,function(result) {	
 				 $("#RsltConsultaSaldo").html(result);
 			});
 		  

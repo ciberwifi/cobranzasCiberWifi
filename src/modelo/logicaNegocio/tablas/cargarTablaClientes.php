@@ -3,6 +3,8 @@
 require_once ($_SERVER['DOCUMENT_ROOT'].'/PATH/pathSistemaCobranza.php');
 require_once(MODEL_PATH.'logicaNegocio/auxiliares/gestionarArchivos.php');
 
+error_reporting(0);
+
 function cargarTablaClientes($clientes,$tablaCli) { 
 
 
@@ -38,7 +40,7 @@ foreach($arch as $linea ) {
 	$celAux2= explode("-", $celAux);
 		
 	
-	if(strlen($celAux2[0])==2)$celAux="11".$celAux2[1];
+	if(strlen($celAux2[0])==2 && strlen($celAux2[1])>0 )$celAux="11".$celAux2[1];
 	if(strlen($celAux2[0]) > 2 ){
 		$celAux="11".substr($celAux2[0],2,10);
 		}

@@ -38,6 +38,7 @@ function descargarPagos ($fecha, $socio1, $socio2, $auto) {
 	ingresarPagosCD($mes, $anio,$configDM, $auto,2 );
 
   echo "Pagos descargados a BASE de DATOS"."\r\n"; 
+  
 }
 
 

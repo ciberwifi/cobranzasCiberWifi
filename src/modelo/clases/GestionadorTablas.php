@@ -20,12 +20,12 @@ Class GestionadorTablas {
     // Declaración de un método
 	
 	
-	 public function __construct() {
+	 public function __construct($mes, $anio) {
 		 global $rutaBD, $rutaDT, $archClientes, $tablaClientes, $tablaHospot,
 		 $tablaSaldos, $debugHospot, $logtablaSaldos, $tablaCortados, $tablaMora;
-		
-	$this->archClientes=$rutaBD.$rutaDT.$archClientes;
-	$this->tablaClientes=$rutaBD.$rutaDT.$tablaClientes;
+		echo $mes;
+	$this->archClientes=$rutaBD.$rutaDT.$archClientes.$mes."-".$anio.".csv";
+	$this->tablaClientes=$rutaBD.$rutaDT.$tablaClientes.$mes."-".$anio.".csv";
 	$this->tablaHospot=$rutaBD.$rutaDT.$tablaHospot;
 	$this->tablaSaldos=$rutaBD.$rutaDT.$tablaSaldos;
 	$this->debugHospot=$rutaBD.$rutaDT.$debugHospot;
@@ -33,6 +33,7 @@ Class GestionadorTablas {
 	$this->tablaCortados=$rutaBD.$rutaDT.$tablaCortados;
 	$this->tablaMora=$rutaBD.$rutaDT.$tablaMora;
 	$this->error=-1;
+	$this->gCargarTablaClientes();
 	}
 	
 	

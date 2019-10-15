@@ -5,11 +5,12 @@
 -excepciones (vencimiento diferencial )
 -terminar saldo y resumen web
 -comparar planes Hospot con planes exel 
-
+-archivos de salida segun mes ok
+-reconeccion en mes siguiente ok
 
 cambios pendientes (que vere algun dia)
 
--Ver que cobrodigital no baja bien los pagos por correo por falta de identificacion 
+-Ver que cobrodigital no baja bien los pagos por correo por falta de identificacion ok 
 -ver pagos difieren 
 -ver tema cambios de plan 
 

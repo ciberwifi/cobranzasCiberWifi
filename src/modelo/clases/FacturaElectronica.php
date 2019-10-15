@@ -3,6 +3,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/PATH/pathSistemaCobranza.php');
 require_once(API_PATH.'AfipWsass/src/Afip.php'); 
 include_once (CONFIG_PATH.'configBaseDeDatos.php');
 require_once(MODEL_PATH.'logicaNegocio/auxiliares/gestionarArchivos.php');
+ini_set('max_execution_time', 600);
 
 Class FacturaElectronica {
     // Declaración de una propiedad
@@ -10,18 +11,16 @@ Class FacturaElectronica {
 	public $Afip;
 	private $sucursal;
 	private $codigoFactura; //tipo C = 011
-	private $montoTotal;
 	private $importes;
     // Declaración de un método
 	
 	
-	 public function __construct($CUIT, $sucursal, $codigoFactura, $afip_res,$montoTotal, $importes) {
+	 public function __construct($CUIT, $sucursal, $codigoFactura, $afip_res, $importes) {
 		
 		 
 	$this->CUIT=$CUIT;
 	$this->sucursal=$sucursal;
 	$this->codigoFactura=$codigoFactura;
-	$this->montoTotal=$montoTotal;
 	$this->importes=$importes;
 	$this->Afip=new Afip(array(
 				'CUIT' => $CUIT,
@@ -60,10 +59,38 @@ public function facturarMes($montoTotal){
 
 }
 }
+public function facturarDesdeArchivo($socio){
+	global $rutaBD, $rutaDT;
+	$anio=date('Y');
+	$mes=date('m');
+	$anio2=date('y');
+	
+	if(strcmp($socio, "la")==0){
+	$archFacturacion=$rutaBD.$rutaDT."entradaDatos/facturar/".$anio."/".$mes."-".$anio2."Laura.csv";
+	}
+	
+	if(strcmp($socio, "ra")==0){
+	$archFacturacion=$rutaBD.$rutaDT."entradaDatos/facturar/".$anio."/".$mes."-".$anio2."Raul.csv";
+	}
+	
+	$vecFacturar= file($archFacturacion);
+			
+		foreach($vecFacturar as $linea ) {
+			
+			$dato = explode(",", $linea);
+			$nombreApellido=$dato[0];
+			$direccion=$dato[1];
+			$localidad=$dato[2];
+			$detalle=$dato[3];
+			$importe=$dato[4];
+			
+		$this->facturar($nombreApellido, $direccion, $localidad, $detalle, $importe);
+		}
+}
 
 
 //ingresar 0 para importe aleatorio, factura con la fecha de hoy , tipo servicios	
-public function facturar($importe){
+public function facturar($nombreApellido, $direccion, $localidad, $detalle, $importe){
 	global $rutaBD, $rutaDT;
 	
 	$fecha=date('Y-m-d');
@@ -108,11 +135,11 @@ $data = array(
 $result = $this->Afip->ElectronicBilling->CreateNextVoucher($data);
 
 if(file_exists($archFacturacion)==FALSE){
-	$linea="Fecha Factura , Numero Factura, Importe , N° CAE, Vencimiento CAE, Direccion, Nombre y Apelido" ;
+	$linea="N° CAE, Vencimiento CAE, Fecha Factura, N° Factura, Nombre y Apelido, Direccion, Localidad, Detalle, Importe" ;
 	grabarEnArchivo($archFacturacion, $linea);
 	}
 	
-$linea=$fecha.",".$result['voucher_number'].",".$importe.",".$result['CAE'].",".$result['CAEFchVto'].",".",";
+$linea=$result['CAE'].",".$result['CAEFchVto'].",".$fecha.",".$result['voucher_number'].",".$nombreApellido.",".$direccion.",".$localidad.",".$detalle.",".$importe;
 		grabarEnArchivo($archFacturacion, $linea);	
 
 return $importe;

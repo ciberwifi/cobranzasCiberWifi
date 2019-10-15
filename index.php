@@ -24,18 +24,24 @@
         <!--[if lt IE 7]>
             <p class="chromeframe">Estas usando una version <strong>desactualizada</strong> del navegador. Por favor <a href="http://browsehappy.com/">actualizalo</a> o <a href="http://www.google.com/chromeframe/?redirect=true">o habilite Google chrome Frame</a> para mejorar su experiencia.</p>
         <![endif]-->
-
+	
         <div class="header-container">
+	
              <header class="wrapper clearfix"> 
-             <h1 class="title">Cobranzas Ciberwifi</h1> 
+         
+		 <img src="img/logo.png" width="80" height="80" border="0"  >
+		 
+				<h1 class="title"  >CiberWifi</h1> 
+				
                 <nav>
                     <ul >
-					 <li><a href="#" id=""></a></li>  
+					 <li><a href="#Cobranzas" id="btnCobranzas">Cobranzas</a></li>  
                        <li><a href="#AFIP" id="btnAfip">Facturacion</a></li>  
-                     <li><a href="#planPagos" id="btnPlanPagos">Plan Pagos </a></li>
-					<li><a href="#pagoManual" id="btnPagoManual">Pago Manual  </a></li>
-					<li><a href="#descargarPagos" id="btnDescargarPagos"> Bajar Pagos</a></li>
-					
+                    <li><a href="#" id="btnCortar">Administracion</a></li>  
+                       <li><a href="#" id="btnCortar">Ventas</a></li>  
+                     <li><a href="#" id="btnCortar">Soporte Tecnico</a></li> 
+					<li><a href="#" id="btnCortar">Infraestructura</a></li>
+					<li><a href="#Clientes" id="btnClientes"  >Clientes</a></li>
 					</ul>
                 </nav>
             </header> 
@@ -59,7 +65,14 @@
                   </section>
 
                 </article>
-				
+				 <aside >
+					
+						
+					
+                    <div id="ajaxBotoneraLateral" ></div>  
+              
+                </aside>
+
     
             </div> <!-- #main -->
         </div> <!-- #main-container -->
@@ -80,21 +93,9 @@
 			});
 			var ajax_load = "<img src='img/indicator_white_small' alt='loading...' />"; 
 			
-			
-			$("#btnDescargarPagos").click(function(){
-					var loadUrl = "src/vista/vistaDescargarPagos.php"; // paso parametro accion e id
-					$("#ajaxMainContenedor").load(loadUrl); // ejecuto
-					
-			});	
-			$("#btnPagoManual").click(function(){
-					var loadUrl = "src/vista/vistaPagoManual.php"; // paso parametro accion e id
-					$("#ajaxMainContenedor").load(loadUrl); // ejecuto
-					
-			});	
-			$("#btnPlanPagos").click(function(){
-					var loadUrl = "src/vista/vistaPlanPagos.php"; // paso parametro accion e id
-					$("#ajaxMainContenedor").load(loadUrl); // ejecuto
-					
+			$("#btnCobranzas").click(function(){
+			var loadUrl = "src/vista/botonerasLaterales/vistaBotoneraLateralCobranzas.php"; // paso parametro accion e id
+					$("#ajaxBotoneraLateral").load(loadUrl); // ejecuto
 			});	
 				$("#btnAfip").click(function(){
 					var loadUrl = "src/vista/vistaFacturacionElectronica.php"; // paso parametro accion e id

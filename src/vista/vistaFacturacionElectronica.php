@@ -14,6 +14,7 @@
 	  border-radius: 4px;
 	  box-shadow: 0 5px 5px #aaa ;
 	  padding:1%;
+	  margin: 1%;
 	
 	  
     }
@@ -130,6 +131,27 @@
    </br>
 <button id="btnBuscar" onclick="stopDefAction(event)"; >Aceptar!</button>
 </div>
+
+  <div class="controlgroup-vertical">
+
+	
+ 
+      <h2>Facturar desde Archivo </h2>
+	  <h4>Los archivos de facturacion deben encontrarse en baseDatos/EntradaDatos/facturar </h4>
+	 
+	  </br>
+	  </br>
+	    <fieldset>
+    
+    <label for="checkbox-4">LA</label>
+    <input type="checkbox" name="checkbox-4" id="checkbox-4" value="la" >
+    <label for="checkbox-5">RA</label>
+    <input type="checkbox" name="checkbox-5" id="checkbox-5" value="ra">
+	
+   </fieldset>
+   </br>
+<button id="btnBuscar2" onclick="stopDefAction(event)"; >Aceptar!</button>
+</div>
 	
 	  </form> 
 	
@@ -155,6 +177,16 @@
 		
 	
 		$("button[id=btnBuscar]").click(function(){
+	    document.querySelector("#" + "RsltContenedor").className = "visibility";
+		
+			var data = $("#formConsultaSaldo").serialize();
+			$.post("src/controlador/ctrlFacturacionElectronica.php", data ,function(result) {	
+				 $("#RsltConsultaSaldo").html(result);
+			});
+		  
+		});
+		
+		$("button[id=btnBuscar2]").click(function(){
 	    document.querySelector("#" + "RsltContenedor").className = "visibility";
 		
 			var data = $("#formConsultaSaldo").serialize();

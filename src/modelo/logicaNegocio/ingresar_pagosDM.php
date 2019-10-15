@@ -3,7 +3,7 @@
 
 require('auxiliares/gestionarArchivos.php');
 ini_set('max_execution_time', 600);
-
+error_reporting(0);
 //El ultimo dia del mes anterior es el dia 0 del mes actual
 
 
@@ -22,14 +22,17 @@ function ingresarPagosDM($mes, $anio, $configDM, $auto, $flagSum){
 	
 if($auto==1 && $diaActual==$primerDia){
 	$diaHasta = date('d',mktime(0, 0, 0, $mes, 0, $anio));
+	
 		if($mesActual==01)obtenerPagosDM(12 ,31, $anio-1, $configDM);
 		else obtenerPagosDM($mes-1 ,$diaHasta, $anio, $configDM, $flagSum);
   }
 	
-if ($mes !== $mesActual && $anio !== $anioActual ) {
+if ($mes !== $mesActual ) {
 	$diaHasta = date('d',mktime(0, 0, 0, $mes+1, 0, $anio));
+	
 
 }
+	
 	echo "Descargando pagos mes: ".$mes."-".$anio."\r\n";  
 	
 	 obtenerPagosDM($mes,$diaHasta, $anio, $configDM, $flagSum);
@@ -98,8 +101,8 @@ function obtenerPagosDM($mes, $diaActual, $anio, $configDM, $flagSum){
 	
 	if($flagSum!==0)$archivoProcesable=obtenerRutaCarpetaBaseDatosCsv($configDM->ruta, $mes, $anio, $configDM->archivoPagosCvs);
 	if($flagSum===1)destruirArchivo($archivoProcesable);
-	
-		$cantidadIteraciones=floor($diaActual/5);
+	 $diaActual;
+	$cantidadIteraciones=floor($diaActual/5);
 		
 		  
 		  $diaHasta=0;
@@ -120,11 +123,11 @@ function obtenerPagosDM($mes, $diaActual, $anio, $configDM, $flagSum){
 		
 		if($diaActual > $diaHasta){
 				if($cantidadIteraciones==0){
-					$fechaDesde=obtenerFecha ( $mes, $primerDia, $anio);
-					$fechaHasta=obtenerFecha($mes, $diaActual , $anio);
+					 $fechaDesde=obtenerFecha ( $mes, $primerDia, $anio);
+					 $fechaHasta=obtenerFecha($mes, $diaActual , $anio);
 				}else{
 					$diaDesde=$diaHasta;
-					$fechaDesde=obtenerFecha ( $mes, $diaDesde , $anio);
+				$fechaDesde=obtenerFecha ( $mes, $diaDesde , $anio);
 					$fechaHasta=obtenerFecha($mes, $diaActual, $anio);
 				}
 		$xml = obtenerXML ($configDM->email, $configDM->cuenta, $configDM->pin, $fechaDesde, $fechaHasta);
