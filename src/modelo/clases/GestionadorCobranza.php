@@ -1,5 +1,5 @@
 <?php
-error_reporting(E_ALL ^ E_NOTICE);
+//error_reporting(E_ALL ^ E_NOTICE);
 include_once ($_SERVER['DOCUMENT_ROOT'].'/PATH/pathSistemaCobranza.php');
 require_once(MODEL_PATH.'clases/GestionadorTablas.php');
 include_once (CONFIG_PATH.'configBaseDeDatos.php');
@@ -237,8 +237,9 @@ public function calcularSaldo($mes, $anio){
 	$pago=$this->buscarTarjeta($SUM,$arrayTarjetas,3,1);
 	$manual=$this->buscarTarjeta($MANUAL, $arrayTarjetas,3, 1);
 	$pk=$dato[0];
+	$plan=$dato[12];
+	$venc=$dato[13];
 	
-
 		// nuevo o debug 	
 		if($salAnt[0]===-1 ){	
 			$fechaAlta=	trim($dato[10]);
@@ -256,10 +257,10 @@ public function calcularSaldo($mes, $anio){
 			if($pago[0]!==-1 )$saldo=$saldo+$pago[1];
 			if($manual[0]!==-1 )$saldo=$saldo+$manual[1]; 
 				
-		$linea=$pk.",".$dato[2].",".$dato[3].",".$dato[4].",".$dato[5].",".$arrayTarjetas[0].",".$salAnt[1].",".$montoPlan.",".$pago[1].",".$manual[1].",".$saldo;
-		grabarEnArchivo($SAL, $linea);	
+		$linea=$pk.",".$dato[2].",".$dato[3].",".$dato[4].",".$dato[5].",".$arrayTarjetas[0].",".$salAnt[1].",".$montoPlan.",".$pago[1].",".$manual[1].",".$saldo.",".$plan.",".$venc;
+		grabarEnArchivo($SAL, trim($linea));	
 		
-				if($pago[1] < $montoPlan)grabarEnArchivo($PagoMAL, $linea);
+				if($pago[1]!==0 AND $pago[1] < $montoPlan)grabarEnArchivo($PagoMAL, trim($linea));
 		
 		}
 	

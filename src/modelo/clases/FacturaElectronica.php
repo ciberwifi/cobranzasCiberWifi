@@ -136,11 +136,11 @@ $result = $this->Afip->ElectronicBilling->CreateNextVoucher($data);
 
 if(file_exists($archFacturacion)==FALSE){
 	$linea="N° CAE, Vencimiento CAE, Fecha Factura, N° Factura, Nombre y Apelido, Direccion, Localidad, Detalle, Importe" ;
-	grabarEnArchivo($archFacturacion, $linea);
+	grabarEnArchivo($archFacturacion, trim($linea));
 	}
 	
 $linea=$result['CAE'].",".$result['CAEFchVto'].",".$fecha.",".$result['voucher_number'].",".$nombreApellido.",".$direccion.",".$localidad.",".$detalle.",".$importe;
-		grabarEnArchivo($archFacturacion, $linea);	
+		grabarEnArchivo($archFacturacion, trim($linea));	
 
 return $importe;
 

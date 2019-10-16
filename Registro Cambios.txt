@@ -1,7 +1,7 @@
 ----Funcionalidades Faltantes-----------------
 - pago manual ok (falta txt de gw)
 - planes de pago ok
--automatico 
+-automatico ok
 -excepciones (vencimiento diferencial )
 -terminar saldo y resumen web
 -comparar planes Hospot con planes exel 

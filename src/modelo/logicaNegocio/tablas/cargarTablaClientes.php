@@ -8,7 +8,6 @@ error_reporting(0);
 function cargarTablaClientes($clientes,$tablaCli) { 
 
 
-
 $arch= file($clientes);
 
 destruirArchivo($tablaCli);
@@ -17,12 +16,12 @@ destruirArchivo($tablaCli);
 	$flag=0;
 	
 foreach($arch as $linea ) {
-	$dato = explode(";", $linea);	
+	 $dato = explode(";", $linea);	
 	$pk=$ai;
 	$zona=trim( $dato[0]);
 	$ipAux=trim($dato[1]);
 	$ip=str_replace("-", ".", $ipAux);
-	 $apellido =trim($dato[2]);
+    $apellido =trim($dato[2]);
     $nombre = trim($dato[3]);
 	$tel= trim($dato[4]);
 	$dir= trim($dato[5]);
@@ -31,8 +30,8 @@ foreach($arch as $linea ) {
 	$tarjetas= trim($dato[8]);
 	$fechaAlta=trim($dato[9]);
 	$importeMensual= trim($dato[10]);
-	$plan= trim($dato[11]);
-	//$venc= trim($dato[12]);
+ $plan= trim($dato[11]);
+ $venc= trim($dato[12]);
 	
 	
 	$tels= explode(" ", $tel);
@@ -50,7 +49,7 @@ foreach($arch as $linea ) {
 	
 	$z=explode("-", $zona);	
 	
-	if($flag ==0 && $z[0]=="A") $flag=1;
+	if($flag ==0 && $z[0]=="Mor") $flag=1;
 	
 	if($flag==1 && $z[0]!=="" &&$z[0]!=="ZONA" &&$z[1]!=="S/C" && $z[1]!=="s/c") {
 		
@@ -67,7 +66,7 @@ foreach($arch as $linea ) {
 			$tarjetas2=implode(" ", $tarjetasCli);
 			$tarjetasCli2=str_replace(array(" ","  ","   "), " ",$tarjetas2);
 			
-	$linea=$ai.",".$z[0].",".$ip.",".$apellido.",".$nombre.",".$celAux.",".$dir.",".$dni.",".$email.",".$tarjetasCli2.",".$fechaAlta.",".$importeMensual.",".$plan;
+	 $linea=$ai.",".$z[0].",".$ip.",".$apellido.",".$nombre.",".$celAux.",".$dir.",".$dni.",".$email.",".$tarjetasCli2.",".$fechaAlta.",".$importeMensual.",".$plan.",".$venc;
 	
 	grabarEnArchivo($tablaCli, $linea);
 	$ai=$ai+1;
