@@ -13,7 +13,7 @@ function procesarPagos ($fecha) {
 	
 	$Cobranzas=	new GestionadorCobranza($mes,$anio);
 	$Cobranzas->calcularSaldo($mes, $anio);
-	$Cobranzas->compararSALconGW($mes, $anio);
+	//$Cobranzas->compararSALconGW($mes, $anio);
 	
   echo "Pagos ".$fecha." Procesados con exito"."\r\n"; 
 }

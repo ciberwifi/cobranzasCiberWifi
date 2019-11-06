@@ -205,8 +205,6 @@ return $datoBuscado;
 	
 public function calcularSaldo($mes, $anio){	
 	global $rutaBD, $rutaDT;
-	 $mes=date('m',mktime(0, 0, 0, $mes, 1, $anio));
-	 
 	 
 	 $mesAnterior=date('m',mktime(0, 0, 0, $mes-1, 1, $anio));
 	 $anioCons=date('y',mktime(0, 0, 0, $mes-1, 1, $anio));
@@ -410,7 +408,7 @@ $fechaActual=date('d-m-y',mktime(0, 0, 0, date('m'),date('d'), date('y')));
 $SAL=$this->calcularSaldo($mes, $anio);
 
 	if($dia< 11){
-		$archCortados=$rutaBD.$rutaDT.$salidaDatos."cortados".$fechaAnterior.".csv";
+	echo 	$archCortados=$rutaBD.$rutaDT.$salidaDatos."cortados".$fechaAnterior.".csv";
 		$vecCortados=file($archCortados);
 		}else{
 		$vecCortados=file($this->archCortados);	
@@ -425,20 +423,21 @@ $tablaHospot=$this->GestionadorTablas->tablaHospot;
 		$dato = explode(",", $linea);
 		$pk=$dato[2];
 		$pos=-1; 
-	
+		$saldoCli=0;
 	
 	$saldoCliente=$this->GestionadorTablas->buscarTablaPorPk ($SAL,$pk, $pos,1);
 	
 	
 	
-	//echo "saldo cliente1: ".$saldoCliente[1].$saldoCli=$saldoCliente[10];
-	if($dia < 11)$saldoCli=$saldoCli+$saldoCliente[8]+$saldoCliente[9];
-	// echo "saldo cliente2: ".$saldoCli;
+	$saldoCli=$saldoCliente[10];
+	if($dia < 11)$saldoCli=$saldoCliente[6]+$saldoCliente[8]+$saldoCliente[9];
+	
 	 
 	if(  $saldoCli > -200   ) {
 		
 		$pos=-1;
-		$hostpotCli=$this->GestionadorTablas->buscarTablaPorPk ($tablaHospot,$pk, $pos,4);
+	    $pk=trim($dato[7]); //id de tabla hospot
+		$hostpotCli=$this->GestionadorTablas->buscarTablaPorPk ($tablaHospot,$pk, $pos,2);
 			
 	if(count($hostpotCli)>0) {
 						

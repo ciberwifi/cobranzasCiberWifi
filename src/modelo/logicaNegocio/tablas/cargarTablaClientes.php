@@ -49,7 +49,7 @@ foreach($arch as $linea ) {
 	
 	$z=explode("-", $zona);	
 	
-	if($flag ==0 && $z[0]=="Mor") $flag=1;
+	if($flag ==0 && ($z[0]=="A" OR $z[0]=="Mor")) $flag=1;
 	
 	if($flag==1 && $z[0]!=="" &&$z[0]!=="ZONA" &&$z[1]!=="S/C" && $z[1]!=="s/c") {
 		
