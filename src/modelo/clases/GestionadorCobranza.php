@@ -374,7 +374,9 @@ foreach($vecMora as $linea ) {
 	$saldoPlan=$dato[7];
 	$saldoDeudor=$dato[10];
 	$pos=-1; //porque quiero todo el vec
-	
+
+//cuando corto mes vencido
+//if(  -200 > ($saldoDeudor + $saldoPlan)  ) {	
 if(  -200 > $saldoDeudor  ) {
 	
 	$hostpotCli=$this->GestionadorTablas->buscarTablaPorPk ($tablaHospot,$pk, $pos, 1);
@@ -386,7 +388,7 @@ if(  -200 > $saldoDeudor  ) {
 				 $linea2=$fechaActual.",".$pk.",".$dato[1].",".$dato[2].",".$dato[3].",".$saldoPlan.",".trim($saldoDeudor).",".$hostpotCli[2];
 				grabarEnArchivo($this->archCortados, $linea2);
 				
-				//$this->GestionadorTablas->gGuardarTablaCortados($linea);
+				$this->GestionadorTablas->gGuardarTablaCortados($linea);
 				
 				$this->ApiMk->cambiarPerfilUserAndRemove ($hostpotCli[2], trim($hostpotCli[5]), "cortado".$hostpotCli[3]);
 			
