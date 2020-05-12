@@ -278,7 +278,9 @@ function avisoMora(){
 	
 ini_set('max_execution_time', 600);
 
-$mensajeAviso="-De CiberWifi- Presenta saldo vencido -Evite interrupciones- regularice en las proximas 48hs -Consultas Cobranzas WhatsApp 1123901362 -Saldo a la fecha ";
+//$mensajeAviso="-De CiberWifi- Presenta saldo vencido -Evite interrupciones- regularice en las proximas 48hs -Consultas Cobranzas WhatsApp 1123901362 -Saldo a la fecha ";
+$mensajeAviso="-De CiberWifi- Ahora podes realizar tus pagos sin moverte de tu casa! solicita el link por Whatsapp al 1169698142- Saldo a la fecha ";
+
 
  $mes= date('m');
 $anio= date('y');
@@ -346,6 +348,35 @@ foreach($vecMora as $linea ) {
 			
 		}
 	}
+	
+	
+function avisoFalla(){
+	
+ini_set('max_execution_time', 600);
+
+$mensajeAviso="-De CiberWifi- Si queres realizar el pago y no tenes como podes acercarte el Lunes 13/04 de 10 a 14hs a JD computacion   Dir : Garzon 3071 Laferrere lado sur ";
+$mensajeAviso2="estaremos trabajando a puertas cerradas , recorda por tu seguridad mantener distancia con otros usuarios y llevar tu tarjeta de pago";
+ 
+ $mes= date('m');
+ $anio= date('y');
+$SAL=$this->calcularSaldo("03", "20");
+
+$vecMora=file($SAL);
+
+
+
+foreach($vecMora as $linea ) {
+	
+	$dato = explode(",", $linea);
+	$pk=$dato[0];
+	
+	$tel=$dato[4];
+	
+	enviarSms($tel, $mensajeAviso);
+	enviarSms($tel, $mensajeAviso2);		
+		}
+	}
+	
 public function cortePorMora($mes, $anio){
 	
 global $rutaBD, $rutaDT;
@@ -357,7 +388,7 @@ $SAL=$this->calcularSaldo($mes, $anio);
 	
 ini_set('max_execution_time', 600);
 
-$mensajeCorte="-De CiberWifi-Servicio interrumpido por Mora -Consultas Cobranzas WhatsApp 1123901362  -Reconeccion Automatica- Saldo deudor ";
+$mensajeCorte="-De CiberWifi-Servicio operando de forma Reducida por Mora - Saldo deudor a Marzo-2020:   ";
 
 $vecMora= file($SAL);
 
@@ -376,8 +407,10 @@ foreach($vecMora as $linea ) {
 	$pos=-1; //porque quiero todo el vec
 
 //cuando corto mes vencido
-//if(  -200 > ($saldoDeudor + $saldoPlan)  ) {	
-if(  -200 > $saldoDeudor  ) {
+$saldoDeudor2= $saldoDeudor + $saldoPlan +$saldoPlan;
+if(  -200 > ($saldoDeudor2)  ) {	
+//if(  -200 > $saldoDeudor  ) {
+	
 	
 	$hostpotCli=$this->GestionadorTablas->buscarTablaPorPk ($tablaHospot,$pk, $pos, 1);
 			
@@ -385,14 +418,14 @@ if(  -200 > $saldoDeudor  ) {
 		
 		//case corte
 	
-				 $linea2=$fechaActual.",".$pk.",".$dato[1].",".$dato[2].",".$dato[3].",".$saldoPlan.",".trim($saldoDeudor).",".$hostpotCli[2];
+				 $linea2=$fechaActual.",".$pk.",".$dato[1].",".$dato[2].",".$dato[3].",".$saldoPlan.",".trim($saldoDeudor2).",".$hostpotCli[2];
 				grabarEnArchivo($this->archCortados, $linea2);
 				
 				$this->GestionadorTablas->gGuardarTablaCortados($linea);
 				
-				$this->ApiMk->cambiarPerfilUserAndRemove ($hostpotCli[2], trim($hostpotCli[5]), "cortado".$hostpotCli[3]);
+				//$this->ApiMk->cambiarPerfilUserAndRemove ($hostpotCli[2], trim($hostpotCli[5]), "cortado".$hostpotCli[3]);
 			
-				enviarSms($tel, $mensajeCorte.abs($saldoDeudor) );
+			    //enviarSms($tel, $mensajeCorte.abs($saldoDeudor) );
 			}
 		}
 	}
