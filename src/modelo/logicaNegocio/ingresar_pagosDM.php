@@ -3,7 +3,7 @@
 
 require('auxiliares/gestionarArchivos.php');
 ini_set('max_execution_time', 600);
-error_reporting(0);
+//error_reporting(0);
 //El ultimo dia del mes anterior es el dia 0 del mes actual
 
 
@@ -60,20 +60,23 @@ function obtenerPagosDesdeXML ($xml,$archivoProcesable){
 	$pagos= simplexml_load_file($xml); 
 	
 	if($pagos ===  FALSE){ 
-	echo "error en xml"; 
+	//echo "error en xml"; 
 	}else{ 
 
  $nTransaccionArray=array();
 	
 foreach ($pagos->Collections->Collection as $pago):
 			
+			//var_dump($pago);
 		 $tarjeta=$pago['Trx_id'];
 		 $importe=$pago->Trx_Payment;
 		 $nTransaccion=$pago->Trx_Number;
 		 $importe=explode(".", $importe);
 		 $importe=$importe[0];
 		 $entidad=substr($pago->Trx_PaymentMean,0,8); 
+		 //echo $pago->Trx_Date;
          $fecha=explode("-", substr($pago->Trx_Date,0,10)); 
+		 $hora=explode(" ",$pago->Trx_Date);
 		 
 		 array_push($nTransaccionArray, $nTransaccion);
 		 
@@ -81,7 +84,7 @@ foreach ($pagos->Collections->Collection as $pago):
 		
 		if(count($result)==0){
 		 
-		 $linea=$fecha[2]."-".$fecha[1]."-".$fecha[0].",".$importe.",".$entidad.",".$tarjeta;
+		 $linea=$fecha[2]."-".$fecha[1]."-".$fecha[0]." ".$hora[1].",".$importe.",".$entidad.",".$tarjeta;
 					grabarEnArchivo($archivoProcesable, $linea);
 			array_push($arrayTransacciones, $nTransaccion);
 			}	

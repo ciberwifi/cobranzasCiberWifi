@@ -7,7 +7,7 @@ include (CONFIG_PATH."configBaseDeDatos.php");
 	 
     if($archivo = fopen($nombreArchivo, "a"))
     {
-        fwrite($archivo, $mensaje. "\r\n");
+        fwrite($archivo, trim($mensaje). "\r\n");
         fclose($archivo);
     }
  }

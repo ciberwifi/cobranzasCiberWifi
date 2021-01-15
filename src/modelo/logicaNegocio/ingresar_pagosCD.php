@@ -63,7 +63,7 @@ function procesarPagos($vecTransacciones,$archivoPagosCvs, $mes){
 	
 		$vec = json_decode(json_encode($dat), True);
 							
-		//echo $vec["Fecha"].",".$vec["Bruto"].",".$vec["Código de barras"].",".$vec["Info"].",".$vec["Nombre"]."\n";
+	 $vec["Fecha"].",".$vec["Bruto"].",".$vec["Código de barras"].",".$vec["Info"].",".$vec["Nombre"]."\n";
 					
 		 $fecha= $vec["Fecha"] ;
 		 $tarjeta=$vec["Código de barras"];
@@ -83,13 +83,17 @@ function procesarPagos($vecTransacciones,$archivoPagosCvs, $mes){
 			foreach ($vecPagosEmail as $linea){
 				$dato = explode(",", $linea);
 				$datoSearch=trim($dato[1]);
+				$tarjetaTab2=0;
+				$tarjetaTab3=0;
 				if(strcmp(trim($nombre),$datoSearch)===0)$tarjetaTab2=$dato[0];
-				$tarjetaTab3=explode("@",$tarjetaTab2);
-				$tarjetaTab=$tarjetaTab3[0]."@";
+				if($tarjetaTab2!==0)$tarjetaTab3=explode("@",$tarjetaTab2);
+				if($tarjetaTab3!==0)$tarjetaTab=$tarjetaTab3[0]."@";
 				}
 			}				
 		if($comprobarMes[1]===$mes && $tarjeta!==null){
-		 $linea=$fecha2.",".$importe3.",".$info.",".$tarjetaTab.",".$nombre;
+			//echo "hola" ;
+		$linea=$fecha2.",".$importe3.",".$info.",".$tarjetaTab.",".$nombre;
+		//echo $archivoPagosCvs;
 		grabarEnArchivo($archivoPagosCvs, $linea);
 			}
 					

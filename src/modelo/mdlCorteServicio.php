@@ -8,7 +8,7 @@ require_once('clases/GestionadorCobranza.php');
 function corteServicio () {
 	  
 	 $mes= date('m');
-	$anio= date('y');
+	 $anio= date('y');
 	
 	
 	$Cobranzas=	new GestionadorCobranza($mes,$anio);

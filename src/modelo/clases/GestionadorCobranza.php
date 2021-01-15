@@ -16,7 +16,10 @@ Class GestionadorCobranza {
 	private $logMora;
 	private $archCortados;
 	private $archAvisoPago;
+	private $archSuspendidos;
 	private $archDescortados;
+	private $reconeccionesPendientes;
+	private $reconeccionesGeneradas;
 	private $error;
     // Declaración de un método
 	
@@ -28,8 +31,10 @@ Class GestionadorCobranza {
 	$this->ApiMk=new ApiMk();
 	$this->logMora=$rutaBD.$rutaDT.$logMora;
 	$this->archCortados=$rutaBD.$rutaDT.$salidaDatos."cortados".$mes."-".$anio.".csv";
-	$this->archAvisoPago=$rutaBD.$rutaDT.$salidaDatos."avisoPago".$mes."-".$anio.".csv";
-	$this->archDescortados=$rutaBD.$rutaDT.$salidaDatos."desCortados".$mes."-".$anio.".csv";
+    $this->archSuspendidos=$rutaBD.$rutaDT.$salidaDatos."suspendidos".$mes."-".$anio.".csv";
+	$this->reconeccionesPendientes=$rutaBD.$rutaDT.$salidaDatos."tablaReconeccion.csv";
+    $this->archAvisoPago=$rutaBD.$rutaDT.$salidaDatos."avisoPago".$mes."-".$anio.".csv";
+	$this->reconeccionesGeneradas=$rutaBD.$rutaDT.$salidaDatos."tablaRecoGenerada.csv";
 	}
 	
 	
@@ -212,6 +217,7 @@ public function calcularSaldo($mes, $anio){
 	
 	 $MANUAL=$rutaBD.$rutaDT."pagos/"."20".$anio."/".$mes."/".$mes."-".$anio."M.csv";
 	 $SUM=$rutaBD.$rutaDT."pagos/"."20".$anio."/".$mes."/".$mes."-".$anio."SUM.csv";
+	 $MP=$rutaBD.$rutaDT."pagos/"."20".$anio."/".$mes."/".$mes."-".$anio."MP.csv";
 	 $SALanterior=$rutaBD.$rutaDT."pagos/"."20".$anioCons."/".$mesAnterior."/".$mesAnterior."-".$anioCons."SAL.csv";
 	 $SAL=$rutaBD.$rutaDT."pagos/"."20".$anio."/".$mes."/".$mes."-".$anio."SAL.csv";
 	 $DEBUG=$rutaBD.$rutaDT."pagos/"."20".$anio."/".$mes."/".$mes."-".$anio."DEBUG.csv";
@@ -233,6 +239,7 @@ public function calcularSaldo($mes, $anio){
 	//3.8
 	$salAnt=$this->buscarTarjeta($SALanterior,$arrayTarjetas,5,10);
 	$pago=$this->buscarTarjeta($SUM,$arrayTarjetas,3,1);
+	$pagomp=$this->buscarTarjeta($MP,$arrayTarjetas,3,1);
 	$manual=$this->buscarTarjeta($MANUAL, $arrayTarjetas,3, 1);
 	$pk=$dato[0];
 	$plan=$dato[12];
@@ -250,15 +257,25 @@ public function calcularSaldo($mes, $anio){
 			}
 		}
 		//calcula saldo cliente
+		$pagoTot=0;
 		if($debug===0)	{
 			$saldo=$salAnt[1]-$montoPlan;
-			if($pago[0]!==-1 )$saldo=$saldo+$pago[1];
+			if($pago[0]!==-1 ){
+				$saldo=$saldo+$pago[1] ;
+				$pagoTot=$pago[1];
+				}
+			if($pagomp[0]!==-1 ){
+				$saldo=$saldo+$pagomp[1];
+				$pagoTot=$pagomp[1];
+				}
 			if($manual[0]!==-1 )$saldo=$saldo+$manual[1]; 
-				
-		$linea=$pk.",".$dato[2].",".$dato[3].",".$dato[4].",".$dato[5].",".$arrayTarjetas[0].",".$salAnt[1].",".$montoPlan.",".$pago[1].",".$manual[1].",".$saldo.",".$plan.",".$venc;
+			
+
+			
+		$linea=$pk.",".$dato[2].",".$dato[3].",".$dato[4].",".$dato[5].",".$arrayTarjetas[0].",".$salAnt[1].",".$montoPlan.",".$pagoTot.",".$manual[1].",".$saldo.",".$plan.",".$venc;
 		grabarEnArchivo($SAL, trim($linea));	
 		
-				if($pago[1]!==0 AND $pago[1] < $montoPlan)grabarEnArchivo($PagoMAL, trim($linea));
+				if($pagoTot==0 AND $$pagoTot < $montoPlan)grabarEnArchivo($PagoMAL, trim($linea));
 		
 		}
 	
@@ -276,13 +293,13 @@ return $SAL;
 
 function avisoMora(){
 	
+
+
 ini_set('max_execution_time', 600);
 
-//$mensajeAviso="-De CiberWifi- Presenta saldo vencido -Evite interrupciones- regularice en las proximas 48hs -Consultas Cobranzas WhatsApp 1123901362 -Saldo a la fecha ";
-$mensajeAviso="-De CiberWifi- Ahora podes realizar tus pagos sin moverte de tu casa! solicita el link por Whatsapp al 1169698142- Saldo a la fecha ";
-
-
- $mes= date('m');
+//$mensajeAviso="-De CiberWifi-Consultas WhatsApp 1169698142 - Le Recordamos que su saldo a Pagar a la fecha es de ";
+$mensajeAviso="-De CiberWifi-Consultas WhatsApp 1169698142 - Le Recordamos que su saldo a Pagar a la fecha es de ";
+$mes=date('m');
 $anio= date('y');
 $SAL=$this->calcularSaldo($mes, $anio);
 
@@ -297,16 +314,13 @@ foreach($vecMora as $linea ) {
 	$saldoPlan=$dato[7];
 	$saldoDeudor=$dato[10];
 	
-			
 	
-		
-		if( -100> $saldoDeudor   ) {
-				
+		//if($saldoDeudor < 0 AND abs($saldoDeudor) >= 100  AND  abs($saldoDeudor) < ($saldoPlan+200)   ) {
+			if($saldoDeudor < 0 AND abs($saldoDeudor) >= 100  ) {
 			$tel=$dato[4];
 			$linea=$pk.",".$dato[1].",".$dato[2].",".$dato[3].",".$tel.",".$dato[5].",".$saldoPlan.",".trim($saldoDeudor);
-			grabarEnArchivo($this->archAvisoPago, $linea);
-			
 			enviarSms($tel, $mensajeAviso.abs($saldoDeudor));
+			grabarEnArchivo($this->archAvisoPago, $linea);
 			}
 		}
 	}
@@ -388,14 +402,10 @@ $SAL=$this->calcularSaldo($mes, $anio);
 	
 ini_set('max_execution_time', 600);
 
-$mensajeCorte="-De CiberWifi-Servicio operando de forma Reducida por Mora - Saldo deudor a Marzo-2020:   ";
-
 $vecMora= file($SAL);
 
 $this->GestionadorTablas->gCargarTablaHospot();
 $tablaHospot=$this->GestionadorTablas->tablaHospot;
-
-//destruirArchivo($this->archCortados);
 
 foreach($vecMora as $linea ) {
 	
@@ -403,32 +413,42 @@ foreach($vecMora as $linea ) {
 	$pk=$dato[0];
 	$tel=$dato[4];
 	$saldoPlan=$dato[7];
-	$saldoDeudor=$dato[10];
+	$saldoDeudor=$dato[10]; //saldo deudor a la fecha 
+	$plan=$dato[11];
 	$pos=-1; //porque quiero todo el vec
 
-//cuando corto mes vencido
-$saldoDeudor2= $saldoDeudor + $saldoPlan +$saldoPlan;
-if(  -200 > ($saldoDeudor2)  ) {	
-//if(  -200 > $saldoDeudor  ) {
-	
-	
+if($saldoDeudor < 0) { 
+
+if( abs($saldoDeudor) >= ($saldoPlan+200) AND  abs($saldoDeudor) <= ($saldoPlan*2)  ) {	
+		
 	$hostpotCli=$this->GestionadorTablas->buscarTablaPorPk ($tablaHospot,$pk, $pos, 1);
 			
-	if(count($hostpotCli)>0) {
-		
-		//case corte
-	
-				 $linea2=$fechaActual.",".$pk.",".$dato[1].",".$dato[2].",".$dato[3].",".$saldoPlan.",".trim($saldoDeudor2).",".$hostpotCli[2];
-				grabarEnArchivo($this->archCortados, $linea2);
-				
-				$this->GestionadorTablas->gGuardarTablaCortados($linea);
-				
-				//$this->ApiMk->cambiarPerfilUserAndRemove ($hostpotCli[2], trim($hostpotCli[5]), "cortado".$hostpotCli[3]);
-			
-			    //enviarSms($tel, $mensajeCorte.abs($saldoDeudor) );
+	if(count($hostpotCli)>0) {				 
+		$linea2=$fechaActual.",".$pk.",".$dato[1].",".$dato[2].",".$dato[3].",".$saldoPlan.",".trim($saldoDeudor).",".$hostpotCli[2];
+		grabarEnArchivo($this->archCortados, trim($linea2));
+		$linea2=$fechaActual.",".$pk.",".$dato[1].",".$dato[2].",".$dato[3].",".$saldoPlan.",".trim($saldoDeudor).","."cortado".$plan.",".trim($hostpotCli[5]).",".trim($plan);
+		grabarEnArchivo($this->reconeccionesPendientes,trim($linea2));
+		//$this->ApiMk->cambiarPerfilUserAndRemove ($hostpotCli[2], trim($hostpotCli[5]), "cortado".$plan);
+		//$this->ApiMk->cambiarPerfilUserAndRemove ($hostpotCli[2], trim($hostpotCli[5]), $plan);	
 			}
 		}
+
+if(  abs($saldoDeudor) > ($saldoPlan*2) ) {	
+		
+	$hostpotCli=$this->GestionadorTablas->buscarTablaPorPk ($tablaHospot,$pk, $pos, 1);
+			
+	if(count($hostpotCli)>0) {				 
+		$linea2=$fechaActual.",".$pk.",".$dato[1].",".$dato[2].",".$dato[3].",".$saldoPlan.",".trim($saldoDeudor).",".$hostpotCli[2];
+		grabarEnArchivo($this->archSuspendidos, trim($linea2));
+		$linea2=$fechaActual.",".$pk.",".$dato[1].",".$dato[2].",".$dato[3].",".$saldoPlan.",".trim($saldoDeudor).","."suspendido".$plan.",".trim($hostpotCli[5]).",".trim($plan);
+		grabarEnArchivo($this->reconeccionesPendientes, trim($linea2));
+		//$this->ApiMk->cambiarPerfilUserAndRemove ($hostpotCli[2], trim($hostpotCli[5]), "suspendido".$plan);
+		//$this->ApiMk->cambiarPerfilUserAndRemove ($hostpotCli[2], trim($hostpotCli[5]), $plan);
+		}
+		}
+		
 	}
+}
 }
 
 public function reconeccion(){
@@ -442,49 +462,41 @@ $fechaAnterior=date('m-y',mktime(0, 0, 0, date('m')-1, 1, date('y')));
 $fechaActual=date('d-m-y',mktime(0, 0, 0, date('m'),date('d'), date('y')));
 $SAL=$this->calcularSaldo($mes, $anio);
 
-	if($dia< 11){
-	echo 	$archCortados=$rutaBD.$rutaDT.$salidaDatos."cortados".$fechaAnterior.".csv";
-		$vecCortados=file($archCortados);
-		}else{
-		$vecCortados=file($this->archCortados);	
-		}
-		
 $this->GestionadorTablas->gCargarTablaHospot();
 $tablaHospot=$this->GestionadorTablas->tablaHospot;
 
+$reconeccionesObservacion=file ($this->reconeccionesPendientes);
 	
-	
-	foreach($vecCortados as $linea ) {
+	foreach($reconeccionesObservacion as $linea ) {
 		$dato = explode(",", $linea);
-		$pk=$dato[2];
-		$pos=-1; 
+		$arrayBusqueda=array();
+		$saldoCliente=array();
+		array_push($arrayBusqueda, trim($dato[2]));
+		$pos=1;//pos ip en SAL 
 		$saldoCli=0;
 	
-	$saldoCliente=$this->GestionadorTablas->buscarTablaPorPk ($SAL,$pk, $pos,1);
+	 $saldoCliente=$this->GestionadorTablas->buscarEnTabla($SAL,$arrayBusqueda, $pos);
 	
-	
-	
-	$saldoCli=$saldoCliente[10];
-	if($dia < 11)$saldoCli=$saldoCliente[6]+$saldoCliente[8]+$saldoCliente[9];
+	$saldoDeudor=$saldoCliente[10];
+	$saldoPlan=$saldoCliente[7];
+	if($dia < 25)$saldoDeudor=$saldoCliente[10]-$saldoPlan;
 	
 	 
-	if(  $saldoCli > -200   ) {
+	if(  abs($saldoDeudor) <= ($saldoPlan+200) ) {
 		
-		$pos=-1;
-	    $pk=trim($dato[7]); //id de tabla hospot
-		$hostpotCli=$this->GestionadorTablas->buscarTablaPorPk ($tablaHospot,$pk, $pos,2);
+		$pos=5; //mac en tabla hospot
+		$arrayBusqueda=array();
+		array_push($arrayBusqueda, trim($dato[8]));
+	    $hostpotCli=$this->GestionadorTablas->buscarEnTabla($tablaHospot,$arrayBusqueda, $pos);
 			
 	if(count($hostpotCli)>0) {
 						
-						$count=substr_count($hostpotCli[3], "cortado");
-						if($count==1){
-						$perfil=str_replace("cortado","",$hostpotCli[3]);
-						
-						$this->ApiMk->cambiarPerfilUserAndRemove ($hostpotCli[2], trim($hostpotCli[5]), $perfil);
+						$planSistema=trim($saldoCliente[11]);
+						$this->ApiMk->cambiarPerfilUserAndRemove ($hostpotCli[2], trim($hostpotCli[5]), $planSistema);
 						
 						}
-						$linea2=$fechaActual.",".trim($linea).",".trim($saldoCliente[10]);
-						grabarEnArchivo($this->archDescortados, $linea2);
+					echo	$linea2=trim($linea).",".trim($saldoCliente[10]).",".$fechaActual;
+						grabarEnArchivo($this->reconeccionesGeneradas, $linea2);
 					}
 				}
 	}
@@ -492,7 +504,7 @@ $tablaHospot=$this->GestionadorTablas->tablaHospot;
 
 
 
-}
+
 
 
 

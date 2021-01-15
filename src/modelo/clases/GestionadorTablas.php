@@ -34,6 +34,7 @@ Class GestionadorTablas {
 	$this->tablaMora=$rutaBD.$rutaDT.$tablaMora;
 	$this->error=-1;
 	$this->gCargarTablaClientes();
+	$this->gCargarTablaHospot();
 	}
 	
 	

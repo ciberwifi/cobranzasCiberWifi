@@ -10,6 +10,7 @@
 				
                     <ul  >
 					<div >
+					<li><a href="#resumenCta" id="btnResumenDeCuenta"> Resumen Cta</a></li>
 					<li><a href="#descargarPagos" id="btnDescargarPagos"> Bajar Pagos</a></li>
 					<li><a href="#pagoManual" id="btnPagoManual">Pago Manual  </a></li>
 					<li><a href="#planPagos" id="btnPlanPagos">Plan Pagos </a></li>
@@ -73,6 +74,14 @@
 					$("#ajaxMainContenedor").load(loadUrl); // ejecuto
 					
 		});
+		
+		$("#btnResumenDeCuenta").click(function(){
+					var loadUrl = "src/vista/vistaResumenDeCuenta.php"; // paso parametro accion e id
+					$("#ajaxMainContenedor").load(loadUrl); // ejecuto
+					
+		});
+		
+		
 		
         </script>
 				

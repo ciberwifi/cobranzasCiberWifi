@@ -15,7 +15,7 @@ function reconeccion () {
 	$Cobranzas->reconeccion();
 	
 	
-  echo "Avisos Enviados con exito! Puede verificar resultado en RaIntercambio/redes.bas/BaseDatos/SalidaDatos/desCortados"."\r\n"; 
+  //echo "Avisos Enviados con exito! Puede verificar resultado en RaIntercambio/redes.bas/BaseDatos/SalidaDatos/desCortados"."\r\n"; 
 }
 
 

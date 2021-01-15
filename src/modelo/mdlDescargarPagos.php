@@ -5,11 +5,15 @@ require_once('logicaNegocio/ingresar_pagosCD.php');
 require (CONFIG_PATH."ConfiguracionDM.php");
 
 
+
+
 function descargarPagos ($fecha, $socio1, $socio2, $auto) {
 	  $fechaRes= explode("-",$fecha) ;
 	 $mes= $fechaRes[0];
 	$anio= $fechaRes[1];
+	echo "SOCIO".$socio1;
 	
+
 	
 	
 	if(strcmp($socio1, "la")==0){
@@ -29,6 +33,7 @@ function descargarPagos ($fecha, $socio1, $socio2, $auto) {
 	
 		}
 	
+	echo CONFIG_PATH.'configuracionDM-'.$socio1.'.php';
 	require(CONFIG_PATH.'configuracionDM-'.$socio1.'.php');
 	$configDM= NEW ConfiguracionDM ($socio1, $archivoPagosTxt, $archivoPagosCvs, $email, $cuenta, $pin, $ruta, "" , "");
 	ingresarPagosDM($mes, $anio,$configDM, $auto,1 );

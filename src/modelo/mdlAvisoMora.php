@@ -7,13 +7,13 @@ require_once('clases/GestionadorCobranza.php');
 
 function avisoMora () {
 	  
-	 $mes= "03";
-	$anio= "20";
+	 $mes=date('m');
+     $anio= date('y');
 	
 	
 	$Cobranzas=	new GestionadorCobranza($mes,$anio);
 	
-	$Cobranzas->avisoFalla();
+	$Cobranzas->avisoMora();
 	
 	
   echo "Avisos Enviados con exito! Puede verificar resultado en RaIntercambio/redes.bas/BaseDatos/SalidaDatos"."\r\n"; 

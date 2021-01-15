@@ -28,13 +28,13 @@ foreach($arch as $linea ) {
 	
 		$usuario=$ApiMk->buscarUser($ip, $apellido, $nombre);
 			if($ApiMk->error==0){
-			$idApiUser = $usuario[".id"];
-			$perfil= $usuario["profile"];
-			$comment=$usuario["comment"];
-			$macAddress=$usuario["name"]; 
+			$idApiUser = trim($usuario[".id"]);
+			$perfil= trim($usuario["profile"]);
+			$comment=trim($usuario["comment"]);
+			$macAddress=trim($usuario["name"]); 
 			
 			$linea=$ai.",".$fk.",".$idApiUser.",".$perfil.",".$comment.",".$macAddress;
-			grabarEnArchivo($tablaHospot, $linea);
+			grabarEnArchivo($tablaHospot, trim($linea));
 			$ai=$ai+1;
 		
 		}else{	

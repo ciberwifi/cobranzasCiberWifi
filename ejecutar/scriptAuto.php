@@ -1,7 +1,7 @@
 <?php 
 
 include_once ($_SERVER['DOCUMENT_ROOT'].'/PATH/pathSistemaCobranza.php');
-require (MODEL_PATH."mdlDescargarPagos.php");
+require (MODEL_PATH."logicaNegocio/mdlDescargarPagos.php");
 
 
 $mesActual = date("m");
@@ -11,7 +11,7 @@ $auto=1;
 
 descargarPagos ($fecha, "la", "ra", $auto);
 
-echo "<script>window.close();</script>";
+
 
 
 ?>

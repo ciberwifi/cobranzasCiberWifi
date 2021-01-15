@@ -102,6 +102,12 @@
 					$("#ajaxMainContenedor").load(loadUrl); // ejecuto
 					
 			});	
+			$("#btnClientes").click(function(){
+					var loadUrl = "src/vista/vistaBuscarCliente.php"; // paso parametro accion e id
+					$("#ajaxMainContenedor").load(loadUrl); // ejecuto
+					
+			});	
+			
 			
         </script>
 
